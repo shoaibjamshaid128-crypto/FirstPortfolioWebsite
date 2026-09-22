@@ -18,30 +18,14 @@ document.getElementById('logout-btn').addEventListener('click', () => {
   });
 });
 
-// Helper: ImgBB Upload Function
-async function uploadToImgBB(file) {
-  // YAHAN APNI IMGBB API KEY DAALEIN (Jo https://api.imgbb.com se milegi)
-  const apiKey = "PASTE_YOUR_IMGBB_API_KEY_HERE";
-
-  if (!apiKey || apiKey === "PASTE_YOUR_IMGBB_API_KEY_HERE") {
-    throw new Error("Pehle admin.js mein apni valid ImgBB API key enter karein.");
-  }
-
-  const formData = new FormData();
-  formData.append("image", file);
-
-  const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-    method: "POST",
-    body: formData
+// Helper: Convert Image to Base64 String (Zero API Key needed)
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
   });
-
-  const data = await res.json();
-  if (data.success && data.data && data.data.url) {
-    return data.data.url;
-  } else {
-    const errorDetail = data.error ? data.error.message : "Image upload failed";
-    throw new Error(errorDetail);
-  }
 }
 
 // Load current profile
@@ -59,7 +43,7 @@ async function loadExistingProfile() {
       document.getElementById('prof-github').value = d.github || '';
     }
   } catch (err) {
-    console.error("Profile load failed:", err);
+    console.error("Profile load error:", err);
   }
 }
 
@@ -74,8 +58,8 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
     let profileUrl = null;
 
     if (fileInput.files.length > 0) {
-      status.innerText = "Uploading profile image...";
-      profileUrl = await uploadToImgBB(fileInput.files[0]);
+      status.innerText = "Processing profile image...";
+      profileUrl = await convertToBase64(fileInput.files[0]);
     }
 
     const profileData = {
@@ -100,16 +84,16 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
 document.getElementById('project-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const status = document.getElementById('upload-status');
-  status.innerText = "Uploading screenshots, please wait...";
+  status.innerText = "Processing screenshots...";
 
   try {
     const imageFiles = document.getElementById('proj-images').files;
     let imageUrls = [];
-    const maxFiles = Math.min(imageFiles.length, 20);
+    const maxFiles = Math.min(imageFiles.length, 5);
 
     for (let i = 0; i < maxFiles; i++) {
-      status.innerText = `Uploading image ${i + 1} of ${maxFiles}...`;
-      const url = await uploadToImgBB(imageFiles[i]);
+      status.innerText = `Processing image ${i + 1} of ${maxFiles}...`;
+      const url = await convertToBase64(imageFiles[i]);
       imageUrls.push(url);
     }
 
