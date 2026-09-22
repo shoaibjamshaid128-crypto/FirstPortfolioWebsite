@@ -5,40 +5,61 @@ import { doc, getDoc, setDoc, collection, addDoc } from "https://www.gstatic.com
 
 // Check Login State
 onAuthStateChanged(auth, (user) => {
-  if (!user) window.location.href = 'login.html';
-  else loadExistingProfile();
+  if (!user) {
+    window.location.href = 'login.html';
+  } else {
+    loadExistingProfile();
+  }
 });
 
 document.getElementById('logout-btn').addEventListener('click', () => {
-  signOut(auth).then(() => window.location.href = 'login.html');
+  signOut(auth).then(() => {
+    window.location.href = 'login.html';
+  });
 });
 
-// Helper: Free ImgBB Upload Function
+// Helper: ImgBB Upload Function
 async function uploadToImgBB(file) {
-  const apiKey = "2d8f6f592237eb3b723528f117c76882"; // Public ImgBB API key
+  // YAHAN APNI IMGBB API KEY DAALEIN (Jo https://api.imgbb.com se milegi)
+  const apiKey = "PASTE_YOUR_IMGBB_API_KEY_HERE";
+
+  if (!apiKey || apiKey === "PASTE_YOUR_IMGBB_API_KEY_HERE") {
+    throw new Error("Pehle admin.js mein apni valid ImgBB API key enter karein.");
+  }
+
   const formData = new FormData();
   formData.append("image", file);
+
   const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
     method: "POST",
     body: formData
   });
+
   const data = await res.json();
-  if (data.success) return data.data.url;
-  throw new Error("Image upload failed");
+  if (data.success && data.data && data.data.url) {
+    return data.data.url;
+  } else {
+    const errorDetail = data.error ? data.error.message : "Image upload failed";
+    throw new Error(errorDetail);
+  }
 }
 
 // Load current profile
 async function loadExistingProfile() {
-  const snap = await getDoc(doc(db, "portfolio", "profile"));
-  if (snap.exists()) {
-    const d = snap.data();
-    document.getElementById('prof-name').value = d.name || '';
-    document.getElementById('prof-title').value = d.title || '';
-    document.getElementById('prof-about').value = d.about || '';
-    document.getElementById('prof-skills').value = d.skills || '';
-    document.getElementById('prof-email').value = d.email || '';
-    document.getElementById('prof-whatsapp').value = d.whatsapp || '';
-    document.getElementById('prof-github').value = d.github || '';
+  try {
+    const snap = await getDoc(doc(db, "portfolio", "profile"));
+    if (snap.exists()) {
+      const d = snap.data();
+      document.getElementById('prof-name').value = d.name || '';
+      document.getElementById('prof-title').value = d.title || '';
+      document.getElementById('prof-about').value = d.about || '';
+      document.getElementById('prof-skills').value = d.skills || '';
+      document.getElementById('prof-email').value = d.email || '';
+      document.getElementById('prof-whatsapp').value = d.whatsapp || '';
+      document.getElementById('prof-github').value = d.github || '';
+    }
+  } catch (err) {
+    console.error("Profile load failed:", err);
   }
 }
 
