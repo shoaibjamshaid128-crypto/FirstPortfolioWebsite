@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Android Developer Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="relative">
+
+  <div class="glow-blob top-10 left-10"></div>
+  <div class="glow-blob bottom-10 right-10"></div>
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 backdrop-blur-md bg-[#070913]/80 border-b border-slate-800 px-6 py-4 flex justify-between items-center max-w-7xl mx-auto">
+    <a href="#" class="text-2xl font-bold gradient-text"><i class="fa-brands fa-android text-emerald-400 mr-2"></i>DevPortfolio</a>
+    <div class="space-x-6 text-sm">
+      <a href="#about" class="hover:text-cyan-400 transition">About</a>
+      <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
+      <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
+      <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
+      <a href="login.html" class="px-3 py-1.5 rounded-lg border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 transition text-xs"><i class="fa-solid fa-lock mr-1"></i> Admin</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="max-w-7xl mx-auto px-6 py-20 flex flex-col-reverse md:flex-row items-center justify-between gap-12 min-h-[80vh]">
+    <div class="md:w-3/5 space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800 text-xs text-cyan-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Available for Android Projects
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-extrabold leading-tight">
+        Hi, I'm <span id="hero-name" class="gradient-text">Developer</span>
+      </h1>
+      <h2 id="hero-title" class="text-xl sm:text-2xl text-slate-400 font-medium">Android & Mobile Application Specialist</h2>
+      <p id="hero-about" class="text-slate-400 leading-relaxed text-base max-w-2xl">
+        Building high-performance native & cross-platform Android mobile applications with clean architecture, modern animations, and scalable backends.
+      </p>
+      <div class="flex flex-wrap gap-4 pt-2">
+        <a href="#projects" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 font-semibold text-slate-950 transition transform hover:-translate-y-0.5 shadow-lg shadow-cyan-500/20">
+          <i class="fa-solid fa-rocket mr-2"></i> View Apps
+        </a>
+        <a href="#contact" class="px-6 py-3 rounded-xl border border-slate-700 hover:border-cyan-400 transition">
+          Contact Me
+        </a>
+      </div>
+    </div>
+    <div class="md:w-2/5 flex justify-center">
+      <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-3xl p-2 bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-500 shadow-2xl">
+        <img id="profile-img" src="https://via.placeholder.com/400" alt="Profile" class="w-full h-full object-cover rounded-2xl bg-slate-900">
+      </div>
+    </div>
+  </header>
+
+  <!-- Skills Section -->
+  <section id="skills" class="max-w-7xl mx-auto px-6 py-16">
+    <h3 class="text-3xl font-bold mb-8 text-center"><span class="gradient-text">Technical Skills</span></h3>
+    <div id="skills-list" class="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+      <!-- Injected via Firebase -->
+    </div>
+  </section>
+
+  <!-- Android Projects Showcase -->
+  <section id="projects" class="max-w-7xl mx-auto px-6 py-20">
+    <div class="text-center mb-14">
+      <h3 class="text-3xl sm:text-4xl font-bold mb-3"><span class="gradient-text">Featured Android Projects</span></h3>
+      <p class="text-slate-400">Download APKs, explore UI screenshots and architecture</p>
+    </div>
+    <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Dynamic Project Cards -->
+    </div>
+  </section>
+
+  <!-- Project Screenshots Modal -->
+  <div id="gallery-modal" class="fixed inset-0 z-50 bg-black/90 hidden flex-col items-center justify-center p-4">
+    <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-3xl hover:text-red-400">&times;</button>
+    <h4 id="modal-title" class="text-xl font-bold text-cyan-400 mb-4">Screenshots Gallery (Up to 20 images)</h4>
+    <div id="modal-images" class="flex flex-wrap gap-4 justify-center overflow-y-auto max-h-[75vh] p-4 max-w-5xl"></div>
+  </div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="max-w-4xl mx-auto px-6 py-20 text-center">
+    <h3 class="text-3xl font-bold mb-4 gradient-text">Let's Build Something Great</h3>
+    <p class="text-slate-400 mb-8">Need an Android app developed from scratch or customized?</p>
+    <div class="flex flex-wrap justify-center gap-6" id="contact-info">
+      <!-- Contact links injected via JS -->
+    </div>
+  </section>
+
+  <footer class="text-center py-8 text-xs text-slate-600 border-t border-slate-900">
+    Designed with AI Glow Theme • Hosted on Vercel
+  </footer>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    function closeModal() {
+      document.getElementById('gallery-modal').classList.add('hidden');
+      document.getElementById('gallery-modal').classList.remove('flex');
+    }
+  </script>
+</body>
+</html>

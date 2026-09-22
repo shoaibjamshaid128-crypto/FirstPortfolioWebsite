@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#070913] text-slate-100 p-6">
+  <div class="max-w-4xl mx-auto space-y-10">
+    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+      <h1 class="text-2xl font-bold text-cyan-400">Admin Control Panel</h1>
+      <div class="flex gap-4 items-center">
+        <a href="index.html" class="text-xs text-slate-400 hover:text-white">View Portfolio</a>
+        <button id="logout-btn" class="text-xs px-3 py-1.5 bg-red-500/20 text-red-400 rounded-lg">Logout</button>
+      </div>
+    </div>
+
+    <!-- Profile Edit -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+      <h2 class="text-lg font-bold mb-4 text-emerald-400">Profile Settings</h2>
+      <form id="profile-form" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs text-slate-400">Name</label>
+            <input type="text" id="prof-name" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-slate-400">Title</label>
+            <input type="text" id="prof-title" placeholder="Android Developer" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">About Me</label>
+          <textarea id="prof-about" rows="3" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm"></textarea>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">Skills (Comma separated)</label>
+          <input type="text" id="prof-skills" placeholder="Java, Kotlin, Jetpack Compose, Firebase" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="text-xs text-slate-400">Email</label>
+            <input type="email" id="prof-email" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-slate-400">WhatsApp Number</label>
+            <input type="text" id="prof-whatsapp" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-slate-400">GitHub Profile URL</label>
+            <input type="url" id="prof-github" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">Profile Picture</label>
+          <input type="file" id="prof-image-file" accept="image/*" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-black">
+        </div>
+        <div class="flex items-center gap-4">
+          <button type="submit" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition">Save Profile</button>
+          <span id="profile-status" class="text-xs text-cyan-300"></span>
+        </div>
+      </form>
+    </section>
+
+    <!-- Upload Android Project -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+      <h2 class="text-lg font-bold mb-4 text-cyan-400">Add New Android Project</h2>
+      <form id="project-form" class="space-y-4">
+        <div>
+          <label class="text-xs text-slate-400">App Name</label>
+          <input type="text" id="proj-title" required class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">App Description & Features</label>
+          <textarea id="proj-desc" rows="3" required class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm"></textarea>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">Technologies Used (Comma separated)</label>
+          <input type="text" id="proj-tech" placeholder="Kotlin, MVVM, Retrofit, Room" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">Screenshots (Select up to 20 images at once)</label>
+          <input type="file" id="proj-images" accept="image/*" multiple class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-black">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">APK Download Link (Google Drive / GitHub release URL)</label>
+          <input type="url" id="proj-apk-link" placeholder="https://drive.google.com/..." class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+        </div>
+        <div class="flex items-center gap-4">
+          <button type="submit" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold rounded-xl text-sm transition">Upload Project</button>
+          <span id="upload-status" class="text-xs text-cyan-300"></span>
+        </div>
+      </form>
+    </section>
+  </div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#070913] text-slate-100 p-6">
+  <div class="max-w-4xl mx-auto space-y-10">
+    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+      <h1 class="text-2xl font-bold text-cyan-400">Admin Control Panel</h1>
+      <div class="flex gap-4 items-center">
+        <a href="index.html" class="text-xs text-slate-400 hover:text-white">View Portfolio</a>
+        <button id="logout-btn" class="text-xs px-3 py-1.5 bg-red-500/20 text-red-400 rounded-lg">Logout</button>
+      </div>
+    </div>
+
+    <!-- Profile Edit -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+      <h2 class="text-lg font-bold mb-4 text-emerald-400">Profile Settings</h2>
+      <form id="profile-form" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs text-slate-400">Name</label>
+            <input type="text" id="prof-name" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-slate-400">Title</label>
+            <input type="text" id="prof-title" placeholder="Android Developer" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">About Me</label>
+          <textarea id="prof-about" rows="3" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm"></textarea>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">Skills (Comma separated)</label>
+          <input type="text" id="prof-skills" placeholder="Java, Kotlin, Jetpack Compose, Firebase" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="text-xs text-slate-400">Email</label>
+            <input type="email" id="prof-email" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-slate-400">WhatsApp Number</label>
+            <input type="text" id="prof-whatsapp" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-slate-400">GitHub Profile URL</label>
+            <input type="url" id="prof-github" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">Profile Picture</label>
+          <input type="file" id="prof-image-file" accept="image/*" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-black">
+        </div>
+        <div class="flex items-center gap-4">
+          <button type="submit" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition">Save Profile</button>
+          <span id="profile-status" class="text-xs text-cyan-300"></span>
+        </div>
+      </form>
+    </section>
+
+    <!-- Upload Android Project -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+      <h2 class="text-lg font-bold mb-4 text-cyan-400">Add New Android Project</h2>
+      <form id="project-form" class="space-y-4">
+        <div>
+          <label class="text-xs text-slate-400">App Name</label>
+          <input type="text" id="proj-title" required class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">App Description & Features</label>
+          <textarea id="proj-desc" rows="3" required class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm"></textarea>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">Technologies Used (Comma separated)</label>
+          <input type="text" id="proj-tech" placeholder="Kotlin, MVVM, Retrofit, Room" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">Screenshots (Select up to 20 images at once)</label>
+          <input type="file" id="proj-images" accept="image/*" multiple class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-black">
+        </div>
+        <div>
+          <label class="text-xs text-slate-400">APK Download Link (Google Drive / GitHub release URL)</label>
+          <input type="url" id="proj-apk-link" placeholder="https://drive.google.com/..." class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+        </div>
+        <div class="flex items-center gap-4">
+          <button type="submit" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold rounded-xl text-sm transition">Upload Project</button>
+          <span id="upload-status" class="text-xs text-cyan-300"></span>
+        </div>
+      </form>
+    </section>
+  </div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
