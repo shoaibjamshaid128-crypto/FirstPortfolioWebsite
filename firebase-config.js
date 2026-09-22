@@ -4,7 +4,7 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAEcitSwDnN6R100IFGAAQ03KN11pQ1Pd4",
+  apiKey: "AIzaSyAEcit5wDWn6R100IFGAAQ03KN11pQ1Pd4",
   authDomain: "shoaib-portfolio-d28d2.firebaseapp.com",
   projectId: "shoaib-portfolio-d28d2",
   storageBucket: "shoaib-portfolio-d28d2.firebasestorage.app",
