@@ -2,7 +2,6 @@
 import { db } from "./firebase-config.js";
 import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Global slider indices store
 const projectSliderState = {};
 
 async function loadProfile() {
@@ -11,29 +10,33 @@ async function loadProfile() {
     const docSnap = await getDoc(profileRef);
     if (docSnap.exists()) {
       const data = docSnap.data();
-      if (data.name) document.getElementById('hero-name').innerText = data.name;
-      if (data.title) document.getElementById('hero-title').innerText = data.title;
+      
+      // Hero & Nav
+      if (data.name) {
+        document.getElementById('hero-name').innerText = data.name;
+        document.getElementById('nav-name').innerText = data.name;
+      }
       if (data.about) document.getElementById('hero-about').innerText = data.about;
-      if (data.profileUrl) document.getElementById('profile-img').src = data.profileUrl;
-
-      // Skills
-      const skillsContainer = document.getElementById('skills-list');
-      skillsContainer.innerHTML = '';
-      if (data.skills) {
-        data.skills.split(',').forEach(skill => {
-          const badge = document.createElement('span');
-          badge.className = 'px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-cyan-300 font-medium text-sm neon-border';
-          badge.innerText = skill.trim();
-          skillsContainer.appendChild(badge);
-        });
+      if (data.profileUrl) {
+        document.getElementById('nav-dp').src = data.profileUrl;
       }
 
-      // Contact Links
+      // WhatsApp Chat CTA in Hero
+      if (data.whatsapp) {
+        document.getElementById('hero-whatsapp').href = `https://wa.me/${data.whatsapp}`;
+      }
+
+      // Nav Links
+      if (data.github) document.getElementById('nav-github').href = data.github;
+      if (data.linkedin) document.getElementById('nav-linkedin').href = data.linkedin;
+
+      // Contact Buttons
       const contactContainer = document.getElementById('contact-info');
       contactContainer.innerHTML = `
-        ${data.email ? `<a href="mailto:${data.email}" class="px-5 py-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-sm transition"><i class="fa-solid fa-envelope mr-2 text-cyan-400"></i>${data.email}</a>` : ''}
-        ${data.whatsapp ? `<a href="https://wa.me/${data.whatsapp}" target="_blank" class="px-5 py-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-400 text-sm transition"><i class="fa-brands fa-whatsapp mr-2 text-emerald-400"></i>WhatsApp</a>` : ''}
-        ${data.github ? `<a href="${data.github}" target="_blank" class="px-5 py-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-white text-sm transition"><i class="fa-brands fa-github mr-2"></i>GitHub</a>` : ''}
+        ${data.email ? `<a href="mailto:${data.email}" class="px-5 py-3 rounded-full bg-slate-950 border border-slate-800 hover:border-cyan-400 text-xs sm:text-sm font-semibold transition flex items-center gap-2"><i class="fa-solid fa-envelope text-cyan-400"></i> ${data.email}</a>` : ''}
+        ${data.whatsapp ? `<a href="https://wa.me/${data.whatsapp}" target="_blank" class="px-5 py-3 rounded-full bg-slate-950 border border-slate-800 hover:border-emerald-400 text-xs sm:text-sm font-semibold text-emerald-400 transition flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> WhatsApp</a>` : ''}
+        ${data.github ? `<a href="${data.github}" target="_blank" class="px-5 py-3 rounded-full bg-slate-950 border border-slate-800 hover:border-white text-xs sm:text-sm font-semibold transition flex items-center gap-2"><i class="fa-brands fa-github text-white"></i> GitHub</a>` : ''}
+        ${data.linkedin ? `<a href="${data.linkedin}" target="_blank" class="px-5 py-3 rounded-full bg-slate-950 border border-slate-800 hover:border-sky-400 text-xs sm:text-sm font-semibold text-sky-400 transition flex items-center gap-2"><i class="fa-brands fa-linkedin text-sky-400"></i> LinkedIn</a>` : ''}
       `;
     }
   } catch (err) {
@@ -65,12 +68,12 @@ async function loadProjects() {
       };
 
       const card = document.createElement('div');
-      card.className = "bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-xl";
+      card.className = "glass-card rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-2xl border border-slate-800 hover:border-cyan-500/40";
 
       card.innerHTML = `
         <div>
           <!-- Slider Frame with exact 600px Height -->
-          <div class="relative w-full h-[600px] bg-slate-950 flex items-center justify-center overflow-hidden border-b border-slate-800 group">
+          <div class="relative w-full h-[600px] bg-[#030611] flex items-center justify-center overflow-hidden border-b border-slate-800/80 group">
             
             <!-- Active Image -->
             <img id="slide-img-${id}" 
@@ -81,14 +84,14 @@ async function loadProjects() {
                  onclick="viewActiveImage('${id}')">
 
             <!-- Click indicator badge -->
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover:opacity-100 transition bg-black/70 px-3 py-1 rounded-full text-[11px] text-cyan-300 border border-cyan-500/30">
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover:opacity-100 transition bg-black/80 px-3 py-1 rounded-full text-[10px] text-cyan-300 border border-cyan-500/30">
               <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Tap to view full size
             </div>
 
             <!-- Left Slide Arrow -->
             ${images.length > 1 ? `
               <button onclick="changeSlide('${id}', -1)" 
-                      class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-900/80 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 flex items-center justify-center text-sm transition shadow-lg z-10">
+                      class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/90 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 flex items-center justify-center text-xs transition shadow-lg z-10">
                 <i class="fa-solid fa-chevron-left"></i>
               </button>
             ` : ''}
@@ -96,38 +99,38 @@ async function loadProjects() {
             <!-- Right Slide Arrow -->
             ${images.length > 1 ? `
               <button onclick="changeSlide('${id}', 1)" 
-                      class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-900/80 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 flex items-center justify-center text-sm transition shadow-lg z-10">
+                      class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/90 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 flex items-center justify-center text-xs transition shadow-lg z-10">
                 <i class="fa-solid fa-chevron-right"></i>
               </button>
             ` : ''}
 
             <!-- Counter Badge -->
-            <div class="absolute top-3 right-3 bg-slate-950/80 border border-slate-800 px-2.5 py-1 rounded-full text-[11px] text-slate-300">
-              <span id="slide-index-${id}">1</span> / ${images.length}
+            <div class="absolute top-3 right-3 bg-slate-950/80 border border-slate-800 px-2 py-0.5 rounded-full text-[10px] text-slate-300 font-mono">
+              <span id="slide-index-${id}">1</span>/${images.length}
             </div>
           </div>
 
           <!-- Project Details with Expandable Description -->
           <div class="p-6">
-            <h4 class="text-xl font-bold mb-2 text-white">${p.title}</h4>
+            <h4 class="text-lg font-bold mb-2 text-white">${p.title}</h4>
             
             <div class="mb-4">
               <p id="desc-${id}" 
                  onclick="toggleDescription('${id}')" 
-                 class="text-slate-400 text-sm leading-relaxed line-clamp-3 cursor-pointer hover:text-slate-200 transition" 
+                 class="text-slate-400 text-xs leading-relaxed line-clamp-3 cursor-pointer hover:text-slate-200 transition" 
                  title="Click to view full description">
                 ${p.description}
               </p>
               <button type="button" 
                       id="desc-btn-${id}" 
                       onclick="toggleDescription('${id}')" 
-                      class="text-xs text-cyan-400 hover:text-cyan-300 mt-1.5 font-medium flex items-center gap-1 transition">
-                <span>Read more</span> <i class="fa-solid fa-angle-down text-[10px]"></i>
+                      class="text-[11px] text-cyan-400 hover:text-cyan-300 mt-1.5 font-medium flex items-center gap-1 transition">
+                <span>Read more</span> <i class="fa-solid fa-angle-down text-[9px]"></i>
               </button>
             </div>
 
             <div class="flex flex-wrap gap-1.5 mb-2">
-              ${(p.techStack || '').split(',').map(tag => tag.trim() ? `<span class="text-xs bg-slate-800/80 px-2.5 py-1 rounded-lg text-cyan-300 border border-slate-700">${tag.trim()}</span>` : '').join('')}
+              ${(p.techStack || '').split(',').map(tag => tag.trim() ? `<span class="text-[10px] font-mono bg-slate-950 px-2.5 py-1 rounded-md text-cyan-300 border border-slate-800">${tag.trim()}</span>` : '').join('')}
             </div>
           </div>
         </div>
@@ -135,8 +138,8 @@ async function loadProjects() {
         <!-- Download APK Button -->
         <div class="p-6 pt-0">
           ${p.apkUrl ? `
-            <a href="${p.apkUrl}" target="_blank" download class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-bold text-sm transition shadow-lg shadow-emerald-500/20">
-              <i class="fa-brands fa-android text-base"></i> Download APK
+            <a href="${p.apkUrl}" target="_blank" download class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:opacity-95 text-slate-950 font-bold text-xs transition shadow-lg shadow-cyan-500/20">
+              <i class="fa-brands fa-android text-sm"></i> Download APK
             </a>
           ` : ''}
         </div>
@@ -149,43 +152,35 @@ async function loadProjects() {
   }
 }
 
-// Expand / Collapse Description Logic
 window.toggleDescription = function(id) {
   const descEl = document.getElementById(`desc-${id}`);
   const btnEl = document.getElementById(`desc-btn-${id}`);
   if (!descEl || !btnEl) return;
 
   const isCollapsed = descEl.classList.contains('line-clamp-3');
-
   if (isCollapsed) {
     descEl.classList.remove('line-clamp-3');
-    btnEl.innerHTML = `<span>Show less</span> <i class="fa-solid fa-angle-up text-[10px]"></i>`;
+    btnEl.innerHTML = `<span>Show less</span> <i class="fa-solid fa-angle-up text-[9px]"></i>`;
   } else {
     descEl.classList.add('line-clamp-3');
-    btnEl.innerHTML = `<span>Read more</span> <i class="fa-solid fa-angle-down text-[10px]"></i>`;
+    btnEl.innerHTML = `<span>Read more</span> <i class="fa-solid fa-angle-down text-[9px]"></i>`;
   }
 };
 
-// Side Arrows Click Handler
 window.changeSlide = function(projectId, direction) {
   const state = projectSliderState[projectId];
   if (!state || state.images.length <= 1) return;
 
   state.currentIndex += direction;
-  if (state.currentIndex < 0) {
-    state.currentIndex = state.images.length - 1;
-  } else if (state.currentIndex >= state.images.length) {
-    state.currentIndex = 0;
-  }
+  if (state.currentIndex < 0) state.currentIndex = state.images.length - 1;
+  else if (state.currentIndex >= state.images.length) state.currentIndex = 0;
 
   const imgEl = document.getElementById(`slide-img-${projectId}`);
   const counterEl = document.getElementById(`slide-index-${projectId}`);
-
   imgEl.src = state.images[state.currentIndex];
   counterEl.innerText = state.currentIndex + 1;
 };
 
-// Full View Modal
 window.viewActiveImage = function(projectId) {
   const state = projectSliderState[projectId];
   if (!state) return;
