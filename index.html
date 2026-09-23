@@ -5,194 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shoaib Jamshaid | Android Architect & Mobile Engineer</title>
   
-  <!-- Modern Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              dark: '#030712',
-              card: '#080e1c',
-              cyan: '#38bdf8',
-              emerald: '#10b981',
-              violet: '#818cf8',
-              amber: '#fbbf24',
-              rose: '#f43f5e'
-            }
-          },
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    * {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-    
-    code, pre, .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    body {
-      background-color: #030712;
-      color: #f1f5f9;
-      overflow-x: hidden;
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 7px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #030712;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1e293b;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #38bdf8;
-    }
-
-    /* Deep Glassmorphism with Cyber Rim Highlights */
-    .glass-card {
-      background: rgba(8, 14, 28, 0.72);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(56, 189, 248, 0.14);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.35);
-      box-shadow: 0 30px 60px -10px rgba(56, 189, 248, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
-    }
-
-    /* Floating Pill Navigation Bar */
-    .pill-navbar {
-      background: rgba(6, 11, 23, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.22);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.85), 0 0 24px -4px rgba(56, 189, 248, 0.15);
-    }
-
-    /* Floating HUD telemetry widgets */
-    .hud-card {
-      background: rgba(6, 12, 26, 0.88);
-      border: 1px solid rgba(56, 189, 248, 0.22);
-      backdrop-filter: blur(20px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 20px rgba(56, 189, 248, 0.12);
-    }
-
-    /* Flowing Sine Waves (Faithful to Reference Design) */
-    .wave-line {
-      stroke-dasharray: 1200;
-      stroke-dashoffset: 1200;
-      animation: waveFlow 12s ease-in-out infinite alternate;
-    }
-    @keyframes waveFlow {
-      0% { stroke-dashoffset: 1200; opacity: 0.25; }
-      50% { opacity: 0.85; }
-      100% { stroke-dashoffset: 0; opacity: 0.35; }
-    }
-
-    /* Smooth Floating Animations */
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(0.4deg); }
-    }
-    @keyframes floatReverse {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(10px) rotate(-0.5deg); }
-    }
-    .animate-float-left {
-      animation: floatSlow 6s ease-in-out infinite;
-    }
-    .animate-float-right {
-      animation: floatReverse 7s ease-in-out infinite;
-    }
-
-    /* Split Slider Controls */
-    .comparison-container {
-      position: relative;
-      overflow: hidden;
-      user-select: none;
-    }
-    .comparison-before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 50%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 10;
-      border-right: 2px solid #38bdf8;
-    }
-    .comparison-handle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 25;
-      cursor: ew-resize;
-    }
-
-    /* Process Flow Connector Trail (Desktop) */
-    .timeline-connector {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 2px;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.4) 0%, rgba(99, 102, 241, 0.4) 50%, rgba(16, 185, 129, 0.4) 100%);
-      pointer-events: none;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="relative min-h-screen text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
 
-  <!-- Interactive 3D Developer Background Canvas -->
+  <!-- Interactive 3D Background Canvas -->
   <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-  <!-- Ambient Cinematic Glow Orbs -->
+  <!-- Ambient Glow Orbs -->
   <div class="fixed top-12 left-1/4 w-[480px] h-[480px] bg-sky-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
   <div class="fixed top-96 right-1/4 w-[520px] h-[520px] bg-indigo-500/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
   <div class="fixed bottom-24 left-1/3 w-[560px] h-[560px] bg-emerald-500/5 rounded-full blur-[160px] pointer-events-none z-0"></div>
 
-  <!-- 1. Floating Pill Navbar (Responsive for Mobile, Tablet, PC) -->
+  <!-- 1. Floating Pill Navbar -->
   <div class="fixed top-4 sm:top-6 inset-x-0 z-50 flex justify-center px-3 sm:px-6">
     <nav class="pill-navbar flex items-center justify-between w-full max-w-5xl px-3.5 sm:px-6 py-2.5 rounded-full">
       
-      <!-- Brand & DP -->
       <a href="#home" class="flex items-center gap-2.5 sm:gap-3 group">
         <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden border border-cyan-400/50 shadow-md group-hover:border-cyan-300 transition">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" 
-               alt="Shoaib Jamshaid" 
+          <img id="nav-dp" src="https://via.placeholder.com/150" 
+               alt="DP" 
                class="w-full h-full object-cover">
           <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-slate-900 rounded-full"></span>
         </div>
         <div class="flex flex-col text-left">
-          <span class="font-extrabold text-xs sm:text-sm tracking-wider text-white uppercase group-hover:text-cyan-400 transition">Shoaib Jamshaid</span>
-          <span class="text-[9px] font-mono text-cyan-400/90 tracking-tight">Android Architect</span>
+          <span id="nav-name" class="font-extrabold text-xs sm:text-sm tracking-wider text-white uppercase group-hover:text-cyan-400 transition">Shoaib Jamshaid</span>
+          <span id="nav-title" class="text-[9px] font-mono text-cyan-400/90 tracking-tight">Android Architect</span>
         </div>
       </a>
 
@@ -208,16 +52,15 @@
 
       <!-- Quick Action / Socials -->
       <div class="flex items-center gap-2 sm:gap-2.5">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" title="GitHub" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-800/90 border border-slate-700/80 flex items-center justify-center text-xs text-slate-200 hover:text-white hover:border-cyan-400 hover:bg-slate-700 transition">
+        <a id="nav-github" href="#" target="_blank" rel="noopener noreferrer" title="GitHub" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-800/90 border border-slate-700/80 flex items-center justify-center text-xs text-slate-200 hover:text-white hover:border-cyan-400 hover:bg-slate-700 transition">
           <i class="fa-brands fa-github"></i>
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-800/90 border border-slate-700/80 flex items-center justify-center text-xs text-sky-400 hover:text-sky-300 hover:border-sky-400 hover:bg-slate-700 transition">
+        <a id="nav-linkedin" href="#" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-800/90 border border-slate-700/80 flex items-center justify-center text-xs text-sky-400 hover:text-sky-300 hover:border-sky-400 hover:bg-slate-700 transition">
           <i class="fa-brands fa-linkedin-in"></i>
         </a>
         <a href="#contact" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-semibold hover:bg-cyan-500 hover:text-slate-950 transition">
           <i class="fa-solid fa-bolt text-[10px]"></i> Contact
         </a>
-        <!-- Mobile Menu Toggle Button -->
         <button id="mobile-menu-btn" class="lg:hidden w-8 h-8 rounded-full bg-slate-800/90 border border-slate-700 flex items-center justify-center text-cyan-400 text-xs">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -240,19 +83,17 @@
   <!-- Main Content Wrapper -->
   <div class="relative z-10">
 
-    <!-- 2. Hero Section: Developer Workstation & Telemetry Widgets -->
+    <!-- 2. Hero Section -->
     <header id="home" class="relative pt-28 pb-16 sm:pt-40 sm:pb-28 max-w-7xl mx-auto px-4 sm:px-6 min-h-[95vh] flex flex-col justify-center items-center text-center">
       
-      <!-- Top Status Tag -->
       <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-xs text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/50">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
         <span class="font-mono font-semibold tracking-wider text-[10px] sm:text-[11px] uppercase">ANDROID PERFORMANCE ARCHITECT & MOBILE SPECIALIST</span>
       </div>
 
-      <!-- Workstation Container with Side HUD Telemetry Widgets -->
       <div class="w-full relative max-w-6xl mx-auto">
         
-        <!-- Left HUD Card: Runtime Telemetry (Desktop) -->
+        <!-- Left HUD Card -->
         <div class="hidden xl:block absolute -left-4 top-8 w-72 hud-card rounded-2xl p-4 text-left shadow-2xl animate-float-left z-30">
           <div class="flex justify-between items-center text-[10px] text-slate-400 mb-3 border-b border-slate-800 pb-2">
             <span class="text-cyan-400 font-bold flex items-center gap-1.5">
@@ -261,7 +102,6 @@
             <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-mono font-bold">60.0 FPS</span>
           </div>
 
-          <!-- Gauges -->
           <div class="space-y-2.5 text-[11px] text-slate-300 font-mono">
             <div>
               <div class="flex justify-between text-[10px] mb-1">
@@ -300,7 +140,7 @@
           </div>
         </div>
 
-        <!-- Right HUD Card: Architecture Core Stack (Desktop) -->
+        <!-- Right HUD Card -->
         <div class="hidden xl:block absolute -right-4 top-12 w-72 hud-card rounded-2xl p-4 text-left shadow-2xl animate-float-right z-30">
           <div class="flex justify-between items-center text-[10px] text-slate-400 mb-3 border-b border-slate-800 pb-2">
             <span class="text-indigo-400 font-bold flex items-center gap-1.5">
@@ -309,7 +149,6 @@
             <span class="text-indigo-300 bg-indigo-500/20 px-2 py-0.5 rounded font-mono font-bold">CLEAN + MVI</span>
           </div>
 
-          <!-- Stack grid -->
           <div class="grid grid-cols-2 gap-2 text-[10px] font-mono mb-3">
             <div class="bg-slate-900/90 p-2 rounded-xl border border-slate-800">
               <span class="text-[9px] text-slate-400 block">UI Pattern</span>
@@ -335,66 +174,52 @@
           </div>
         </div>
 
-        <!-- Developer Workstation Center Mockup with Studio Screens -->
+        <!-- Center Workstation Glass Box -->
         <div class="relative w-full rounded-3xl overflow-hidden glass-card p-2 sm:p-4 mb-8 shadow-2xl border border-cyan-500/20">
-          
           <div class="relative w-full min-h-[420px] sm:h-[480px] lg:h-[540px] rounded-2xl overflow-hidden bg-slate-950 flex flex-col justify-end">
             
-            <!-- Atmospheric Background Image of Software Engineer Multi-Monitor Studio -->
-            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=85" 
-                 alt="Android Engineer Workstation" 
-                 class="absolute inset-0 w-full h-full object-cover object-center opacity-35 filter contrast-125 saturate-150">
-
-            <!-- Deep Gradients -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-transparent"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-[#030712] via-transparent to-[#030712]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/70 to-[#030712]"></div>
             
-            <!-- Animated Flowing Sine Waves across the hero -->
+            <!-- Sine waves -->
             <svg class="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full h-44 pointer-events-none opacity-40" viewBox="0 0 1000 200" preserveAspectRatio="none">
               <path class="wave-line" d="M0,100 C150,20 350,180 500,100 C650,20 850,180 1000,100" fill="none" stroke="#38bdf8" stroke-width="2"/>
               <path class="wave-line" d="M0,110 C200,180 350,20 500,110 C650,200 800,20 1000,110" fill="none" stroke="#818cf8" stroke-width="1.5" style="animation-delay: -4s;"/>
               <path class="wave-line" d="M0,90 C180,30 320,170 500,90 C680,10 820,170 1000,90" fill="none" stroke="#10b981" stroke-width="1" style="animation-delay: -7s;"/>
             </svg>
 
-            <!-- Hero Center Headlines -->
+            <!-- Center Headlines -->
             <div class="relative z-20 px-4 py-8 sm:py-12 text-center max-w-3xl mx-auto">
               
-              <!-- Terminal pill -->
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 text-[11px] font-mono text-cyan-300 mb-4 backdrop-blur-md">
                 <i class="fa-brands fa-android text-emerald-400 text-sm"></i>
                 <span>kotlinc &bull; ./gradlew assembleRelease [SUCCESSFUL]</span>
               </div>
 
-              <!-- Main Hero Name -->
               <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white mb-3 drop-shadow-md">
-                Shoaib Jamshaid
+                <span id="hero-name">Shoaib Jamshaid</span>
               </h1>
               
-              <p class="text-xs sm:text-base font-bold tracking-widest text-cyan-400 mb-4 uppercase font-mono">
+              <p id="hero-title" class="text-xs sm:text-base font-bold tracking-widest text-cyan-400 mb-4 uppercase font-mono">
                 Android Growth Partner & Mobile Architect
               </p>
 
-              <!-- Highlights in line -->
-              <div class="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-300 font-medium mb-6">
-                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Jetpack Compose</span>
-                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Offline Room Sync</span>
-                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Clean MVI</span>
-                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> 99.9% Crash-Free</span>
+              <div id="skills-list" class="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-300 font-medium mb-6">
+                <!-- Dynamically populated from Firebase -->
               </div>
 
-              <!-- Hero Call to Action Buttons -->
+              <!-- Action buttons -->
               <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
                 <a href="#projects" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 text-slate-950 font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-cyan-500/30 hover:opacity-90 transition transform hover:-translate-y-0.5 flex items-center gap-2">
                   <i class="fa-solid fa-mobile-screen text-base"></i> View Production Apps
                 </a>
-                <a href="https://wa.me/923000000000?text=Hello%20Shoaib,%20I%20would%20like%20to%20discuss%20an%20Android%20Architecture%20Project" target="_blank" rel="noopener noreferrer" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-slate-900/85 border border-slate-700 hover:border-emerald-400 text-emerald-400 font-bold text-xs sm:text-sm tracking-wide transition transform hover:-translate-y-0.5 flex items-center gap-2 backdrop-blur-md">
+                <a id="hero-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-slate-900/85 border border-slate-700 hover:border-emerald-400 text-emerald-400 font-bold text-xs sm:text-sm tracking-wide transition transform hover:-translate-y-0.5 flex items-center gap-2 backdrop-blur-md">
                   <i class="fa-brands fa-whatsapp text-lg"></i> Chat with me
                 </a>
               </div>
 
             </div>
 
-            <!-- Bottom Multi-Tool Developer Bar -->
+            <!-- Terminal status bar -->
             <div class="relative z-20 w-full border-t border-slate-800/80 bg-slate-950/80 px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between text-[10px] sm:text-[11px] font-mono text-slate-400 gap-2">
               <div class="flex items-center gap-3">
                 <span class="text-emerald-400 flex items-center"><i class="fa-solid fa-circle text-[7px] mr-1.5"></i> Gradle Daemon: Active</span>
@@ -408,18 +233,15 @@
             </div>
 
           </div>
-
         </div>
 
       </div>
-
     </header>
 
     <!-- 3. Key Metrics Section -->
     <section id="metrics" class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <!-- Metric 1: Retention & Growth -->
         <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-t-2 border-t-cyan-400 shadow-xl relative overflow-hidden group">
           <div class="flex items-center justify-between mb-4">
             <span class="text-4xl sm:text-5xl font-black text-cyan-400 tracking-tight font-mono">3.4x</span>
@@ -433,7 +255,6 @@
           </div>
         </div>
 
-        <!-- Metric 2: Crash-Free -->
         <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-t-2 border-t-indigo-400 shadow-xl relative overflow-hidden group">
           <div class="flex items-center justify-between mb-4">
             <span class="text-4xl sm:text-5xl font-black text-indigo-400 tracking-tight font-mono">99.9%</span>
@@ -443,11 +264,10 @@
           </div>
           <div>
             <h4 class="text-base font-extrabold text-white mb-1">Crash-Free Users Verified</h4>
-            <p class="text-xs text-slate-400 leading-relaxed">Firebase Crashlytics benchmarked. Strict Kotlin immutability, sealed Result types, and offline Room DB sync.</p>
+            <p class="text-xs text-slate-400 leading-relaxed">Strict Kotlin immutability, sealed Result types, and offline Room DB sync.</p>
           </div>
         </div>
 
-        <!-- Metric 3: Frame Rate -->
         <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-t-2 border-t-emerald-400 shadow-xl relative overflow-hidden group">
           <div class="flex items-center justify-between mb-4">
             <span class="text-4xl sm:text-5xl font-black text-emerald-400 tracking-tight font-mono">60 FPS</span>
@@ -464,7 +284,7 @@
       </div>
     </section>
 
-    <!-- 4. Interactive Before/After Architecture Comparison Slider -->
+    <!-- 4. Interactive Architecture Comparison Slider -->
     <section id="comparison" class="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
       <div class="text-center mb-10 sm:mb-12">
         <h3 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mb-2">
@@ -475,10 +295,7 @@
         </p>
       </div>
 
-      <!-- Comparison Frame -->
       <div class="glass-card rounded-3xl p-3 sm:p-5 border border-cyan-500/20 shadow-2xl relative">
-        
-        <!-- Legend Indicator Header -->
         <div class="flex flex-wrap items-center justify-between px-3 sm:px-4 py-2 border-b border-slate-800 text-[11px] font-mono text-slate-400 mb-3 gap-2">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
@@ -490,10 +307,9 @@
           </div>
         </div>
 
-        <!-- The Interactive Sliding Viewport -->
         <div id="comparison-box" class="comparison-container w-full h-[380px] sm:h-[440px] rounded-2xl bg-slate-950 relative overflow-hidden cursor-ew-resize">
           
-          <!-- AFTER (Right / Bottom Layer): Modern Android Jetpack Compose -->
+          <!-- AFTER Layer -->
           <div class="absolute inset-0 w-full h-full p-5 sm:p-8 flex flex-col justify-between bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/40 text-left">
             <div class="flex justify-between items-start">
               <div>
@@ -509,7 +325,6 @@
               </div>
             </div>
 
-            <!-- Code snippet comparison AFTER -->
             <pre class="bg-slate-950/90 border border-emerald-500/30 rounded-xl p-3.5 sm:p-4 text-[10px] sm:text-[11px] font-mono text-emerald-300/90 overflow-x-auto shadow-inner">
 <code><span class="text-indigo-400">@Composable</span>
 <span class="text-cyan-400">fun</span> <span class="text-amber-300">WalletScreen</span>(viewModel: <span class="text-sky-300">WalletViewModel</span> = hiltViewModel()) {
@@ -525,7 +340,7 @@
             </div>
           </div>
 
-          <!-- BEFORE (Left / Clipped Layer): Legacy Spaghetti Java -->
+          <!-- BEFORE Layer -->
           <div id="comparison-before" class="comparison-before bg-gradient-to-br from-slate-950 via-slate-900 to-rose-950/40 p-5 sm:p-8 flex flex-col justify-between text-left">
             <div class="w-[500px] sm:w-[800px] flex justify-between items-start">
               <div>
@@ -541,13 +356,11 @@
               </div>
             </div>
 
-            <!-- Code snippet comparison BEFORE -->
             <pre class="w-[500px] sm:w-[800px] bg-slate-950/95 border border-rose-500/30 rounded-xl p-3.5 sm:p-4 text-[10px] sm:text-[11px] font-mono text-rose-300/80 overflow-x-auto shadow-inner">
 <code><span class="text-rose-400">// God Activity with nested UI callbacks and heavy leaks</span>
 <span class="text-cyan-400">public class</span> <span class="text-amber-300">WalletActivity</span> <span class="text-cyan-400">extends</span> <span class="text-sky-300">Activity</span> {
     <span class="text-rose-400">@Override</span>
     <span class="text-cyan-400">protected void</span> <span class="text-amber-300">onCreate</span>(Bundle b) {
-        <span class="text-rose-400">// Blocking main thread directly on disk IO</span>
         Cursor c = db.rawQuery(<span class="text-emerald-400">"SELECT * FROM balance"</span>, <span class="text-indigo-400">null</span>);
         findViewById(R.id.btn_send).setOnClickListener(...);
     }
@@ -558,7 +371,6 @@
             </div>
           </div>
 
-          <!-- Drag Handle Button -->
           <div id="comparison-handle" class="comparison-handle flex items-center justify-center pointer-events-none">
             <div class="w-10 h-10 rounded-full bg-cyan-400 text-slate-950 flex items-center justify-center shadow-lg shadow-cyan-400/60 border-2 border-white text-xs font-black">
               <i class="fa-solid fa-arrows-left-right"></i>
@@ -570,7 +382,6 @@
         <div class="text-center mt-3 text-[11px] font-mono text-slate-500">
           <i class="fa-solid fa-hand-pointer mr-1 text-cyan-400"></i> Drag slider sideways or click anywhere to toggle view
         </div>
-
       </div>
     </section>
 
@@ -581,114 +392,48 @@
         <p class="text-xs sm:text-sm text-slate-400 font-medium">From raw logic to verified production release in 7 strategic engineering steps</p>
       </div>
 
-      <!-- Connected Timeline Cards -->
       <div class="relative space-y-7">
-        
-        <!-- Step 1 -->
         <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-cyan-400 relative z-10">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-400 tracking-wider font-mono">01 &nbsp; STEP ONE</span>
-            <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-diagram-project mr-1 text-cyan-400"></i> Phase 1</span>
-          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-400 tracking-wider font-mono">01 &nbsp; STEP ONE</span>
           <h4 class="text-base sm:text-lg font-bold text-white mt-1">Architecture Planning & Data Modeling</h4>
           <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Structuring entity relations, offline Room schemas, and network contracts before writing a line of code.</p>
-          <ul class="text-xs text-slate-300 space-y-1.5 font-mono">
-            <li class="flex items-center"><i class="fa-solid fa-check text-cyan-400 mr-2.5"></i> Entity schemas and database relations strictly mapped</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-cyan-400 mr-2.5"></i> REST API / GraphQL / Firebase contracts finalized</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-cyan-400 mr-2.5"></i> Multi-module Clean Architecture repository setup</li>
-          </ul>
         </div>
 
-        <!-- Step 2 -->
         <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-blue-400 sm:ml-10 relative z-10">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-blue-500/20 text-blue-400 tracking-wider font-mono">02 &nbsp; STEP TWO</span>
-            <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-palette mr-1 text-blue-400"></i> Phase 2</span>
-          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-blue-500/20 text-blue-400 tracking-wider font-mono">02 &nbsp; STEP TWO</span>
           <h4 class="text-base sm:text-lg font-bold text-white mt-1">Reactive UI & Component Assembly</h4>
           <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Creating adaptive, pixel-perfect layouts using modern Jetpack Compose or dynamic XML with Material 3.</p>
-          <ul class="text-xs text-slate-300 space-y-1.5 font-mono">
-            <li class="flex items-center"><i class="fa-solid fa-check text-blue-400 mr-2.5"></i> Material 3 design tokens, adaptive typography & dark theme</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-blue-400 mr-2.5"></i> Responsive screens for Foldables, Tablets, and Mobile</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-blue-400 mr-2.5"></i> Micro-interactions, spring animations & zero frame drops</li>
-          </ul>
         </div>
 
-        <!-- Step 3 -->
         <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-indigo-400 relative z-10">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-400 tracking-wider font-mono">03 &nbsp; STEP THREE</span>
-            <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-database mr-1 text-indigo-400"></i> Phase 3</span>
-          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-400 tracking-wider font-mono">03 &nbsp; STEP THREE</span>
           <h4 class="text-base sm:text-lg font-bold text-white mt-1">Offline-First Caching & State Management</h4>
           <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Implementing local databases with reactive StateFlow streams for instantaneous local loading.</p>
-          <ul class="text-xs text-slate-300 space-y-1.5 font-mono">
-            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Room SQLite bidirectional synchronization</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Kotlin Coroutines & Flow pipeline integration</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-indigo-400 mr-2.5"></i> Zero data loss during sudden network cutoff</li>
-          </ul>
         </div>
 
-        <!-- Step 4 -->
         <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-purple-400 sm:ml-10 relative z-10">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-purple-500/20 text-purple-400 tracking-wider font-mono">04 &nbsp; STEP FOUR</span>
-            <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-cloud-arrow-up mr-1 text-purple-400"></i> Phase 4</span>
-          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-purple-500/20 text-purple-400 tracking-wider font-mono">04 &nbsp; STEP FOUR</span>
           <h4 class="text-base sm:text-lg font-bold text-white mt-1">API Integration & Cloud Synchronization</h4>
           <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Connecting secure backend endpoints, real-time web sockets, and push notification gateways.</p>
-          <ul class="text-xs text-slate-300 space-y-1.5 font-mono">
-            <li class="flex items-center"><i class="fa-solid fa-check text-purple-400 mr-2.5"></i> Retrofit2, OkHttp3 interceptors & JWT auto-refresh</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-purple-400 mr-2.5"></i> Smart retry logic with exponential backoff policies</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-purple-400 mr-2.5"></i> Firebase Cloud Messaging & background WorkManager tasks</li>
-          </ul>
         </div>
 
-        <!-- Step 5 -->
         <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-pink-400 relative z-10">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-pink-500/20 text-pink-400 tracking-wider font-mono">05 &nbsp; STEP FIVE</span>
-            <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-gauge-high mr-1 text-pink-400"></i> Phase 5</span>
-          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-pink-500/20 text-pink-400 tracking-wider font-mono">05 &nbsp; STEP FIVE</span>
           <h4 class="text-base sm:text-lg font-bold text-white mt-1">Performance Profiling & Memory Audit</h4>
           <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Rigorous audits of Android Studio Profiler traces to identify bottlenecks and UI jank.</p>
-          <ul class="text-xs text-slate-300 space-y-1.5 font-mono">
-            <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2.5"></i> LeakCanary automated heap memory leak detection</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2.5"></i> GPU overdraw elimination and composition pruning</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-pink-400 mr-2.5"></i> App startup time compressed to under 400 milliseconds</li>
-          </ul>
         </div>
 
-        <!-- Step 6 -->
         <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-amber-400 sm:ml-10 relative z-10">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 tracking-wider font-mono">06 &nbsp; STEP SIX</span>
-            <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-shield-halved mr-1 text-amber-400"></i> Phase 6</span>
-          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 tracking-wider font-mono">06 &nbsp; STEP SIX</span>
           <h4 class="text-base sm:text-lg font-bold text-white mt-1">Code Shrinking & Security Hardening</h4>
           <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Securing compiled bytecodes, obfuscating sensitive keys, and trimming download footprints.</p>
-          <ul class="text-xs text-slate-300 space-y-1.5 font-mono">
-            <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2.5"></i> R8 / ProGuard rules tailored to remove unneeded bytecodes</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2.5"></i> Hardware-backed Android Keystore token encryption</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2.5"></i> APK download size cut by 40-50%</li>
-          </ul>
         </div>
 
-        <!-- Step 7 -->
         <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-emerald-400 relative z-10">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 tracking-wider font-mono">07 &nbsp; STEP SEVEN</span>
-            <span class="text-xs font-mono text-slate-500"><i class="fa-solid fa-circle-check mr-1 text-emerald-400"></i> Phase 7</span>
-          </div>
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 tracking-wider font-mono">07 &nbsp; STEP SEVEN</span>
           <h4 class="text-base sm:text-lg font-bold text-white mt-1">Production Release & Play Store Deployment</h4>
           <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Signed Android App Bundles (AAB) delivered with CI/CD automation and release management.</p>
-          <ul class="text-xs text-slate-300 space-y-1.5 font-mono">
-            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Google Play Console store guidelines & policy compliance</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Fastlane or GitHub Actions CI/CD pipeline handover</li>
-            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Continuous monitoring with Firebase Crashlytics & Analytics</li>
-          </ul>
         </div>
-
       </div>
     </section>
 
@@ -696,7 +441,6 @@
     <section id="about" class="max-w-6xl mx-auto px-4 sm:px-6 py-20">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
         
-        <!-- Left: Bio & Highlights -->
         <div class="lg:col-span-7 space-y-5">
           <div class="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 tracking-wider uppercase">
             <i class="fa-solid fa-terminal"></i> About the Engineer
@@ -704,24 +448,22 @@
           <h3 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
             ABOUT ME.
           </h3>
-          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p id="about-detailed-text" class="text-slate-300 text-sm sm:text-base leading-relaxed">
             I am an Android Application Engineer focused on transforming business objectives into high-performance, resilient, and engaging mobile products. Proficient in Kotlin, modern Android Jetpack (Compose, Room, Navigation, Hilt), and scalable clean architecture patterns.
           </p>
           <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
             I eliminate the gap between high-level architectural design and execution. By treating mobile as a primary business channel, my applications consistently achieve superior user retention, sub-400ms startup speeds, and verified 99.9% crash-free stability.
           </p>
 
-          <!-- Buttons -->
           <div class="flex flex-wrap items-center gap-4 pt-2">
             <a href="#projects" class="px-6 py-3 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs sm:text-sm transition flex items-center gap-2 shadow-lg shadow-amber-400/20">
               EXPLORE APPS <i class="fa-solid fa-arrow-right"></i>
             </a>
-            <a href="https://wa.me/923000000000?text=Hello%20Shoaib,%20let%27s%20connect%20for%20an%20Android%20Architecture%20Project" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full bg-slate-900/80 border border-slate-700 hover:border-emerald-400 text-emerald-400 font-semibold text-xs sm:text-sm transition flex items-center gap-2 backdrop-blur-md">
+            <a id="about-chat-btn" href="#" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full bg-slate-900/80 border border-slate-700 hover:border-emerald-400 text-emerald-400 font-semibold text-xs sm:text-sm transition flex items-center gap-2 backdrop-blur-md">
               <i class="fa-brands fa-whatsapp text-base"></i> Chat with me
             </a>
           </div>
 
-          <!-- Proof Pills -->
           <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-[11px] text-slate-400 pt-3 font-mono">
             <span><i class="fa-solid fa-shield-halved text-cyan-400 mr-1.5"></i> Strict NDA Compliance</span>
             <span><i class="fa-solid fa-bolt text-emerald-400 mr-1.5"></i> 60FPS Micro-benchmarked</span>
@@ -729,27 +471,24 @@
           </div>
         </div>
 
-        <!-- Right: Developer ID Card (Matches Reference Aesthetic) -->
+        <!-- Right: Developer ID Card -->
         <div class="lg:col-span-5 flex justify-center">
           <div class="relative w-full max-w-sm rounded-3xl p-3.5 bg-gradient-to-b from-cyan-500/20 via-slate-800/40 to-slate-950 border border-slate-800 shadow-2xl backdrop-blur-xl">
             
-            <!-- Verified Floating Tag -->
             <div class="absolute top-6 right-6 z-10 px-3 py-1 rounded-full bg-emerald-950/85 border border-emerald-500/40 text-emerald-400 text-[10px] font-bold font-mono flex items-center gap-1.5 shadow-lg backdrop-blur-md">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> VERIFIED ARCHITECT
             </div>
 
-            <!-- Portrait Frame -->
             <div class="h-96 w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800/80 relative group">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80" 
+              <img id="about-portrait-img" src="https://via.placeholder.com/600" 
                    alt="Shoaib Jamshaid Portrait" 
                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
             </div>
 
-            <!-- Card Bottom Bio -->
             <div class="p-3 text-center">
-              <h4 class="font-extrabold text-base text-white tracking-wide">Shoaib Jamshaid</h4>
-              <p class="text-xs text-cyan-400 font-mono mt-0.5">Android Systems & Growth Partner</p>
+              <h4 id="about-card-name" class="font-extrabold text-base text-white tracking-wide">Shoaib Jamshaid</h4>
+              <p id="about-card-title" class="text-xs text-cyan-400 font-mono mt-0.5">Android Systems & Growth Partner</p>
               <div class="mt-3 pt-3 border-t border-slate-800 flex justify-center gap-4 text-slate-400 text-xs font-mono">
                 <span><i class="fa-solid fa-location-dot text-rose-400 mr-1"></i> Pakistan</span>
                 <span><i class="fa-solid fa-globe text-cyan-400 mr-1"></i> Worldwide Remote</span>
@@ -762,14 +501,14 @@
       </div>
     </section>
 
-    <!-- 7. Projects Showcase Section with Category Filter & Fullscreen Zoom -->
+    <!-- 7. Dynamic Projects Showcase Section -->
     <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 py-20">
       <div class="text-center mb-10">
         <div class="inline-block px-3.5 py-1 rounded-full bg-cyan-950/60 border border-cyan-800 text-[11px] text-cyan-300 mb-2 font-mono uppercase tracking-wider">
           PRODUCTION SHOWCASE VAULT
         </div>
         <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Selected Android Works</h3>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Click on any screenshot to view full resolution details in modal preview</p>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Tap image to zoom full screen, use side arrows to view all screenshots</p>
       </div>
 
       <!-- Filter Tabs -->
@@ -780,87 +519,9 @@
         <button onclick="filterProjects('media')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-mono font-semibold bg-slate-900 text-slate-300 border border-slate-800 hover:border-cyan-400 transition" data-filter="media">Media & Audio</button>
       </div>
 
-      <!-- Project Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-        
-        <!-- App 1: NovaPay Fintech Mobile -->
-        <div class="project-card glass-card rounded-3xl p-5 border border-slate-800 hover:border-cyan-400/40 transition group" data-category="fintech">
-          <div class="relative w-full h-64 rounded-2xl overflow-hidden bg-slate-950 mb-4 border border-slate-800 cursor-pointer" onclick="openViewer('https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80', 'NovaPay: Offline-First Wallet & Crypto Exchange App')">
-            <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=700&q=80" 
-                 alt="NovaPay Fintech" 
-                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition"></div>
-            <div class="absolute bottom-3 right-3 px-2 py-1 rounded bg-slate-900/90 border border-slate-700 text-[10px] text-cyan-300 font-mono flex items-center gap-1">
-              <i class="fa-solid fa-magnifying-glass-plus"></i> Tap to Zoom
-            </div>
-          </div>
-          <div class="space-y-2">
-            <div class="flex justify-between items-center text-[10px] font-mono">
-              <span class="text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded font-bold">FINTECH & BANKING</span>
-              <span class="text-emerald-400"><i class="fa-solid fa-circle text-[8px] mr-1"></i>Play Store 50k+</span>
-            </div>
-            <h4 class="text-base font-extrabold text-white group-hover:text-cyan-400 transition">NovaPay NeoBank & Wallet</h4>
-            <p class="text-xs text-slate-400 leading-relaxed">End-to-end encrypted banking app with Biometric Auth, local Room SQLCipher database, and real-time socket ticker.</p>
-            <div class="flex flex-wrap gap-1.5 pt-2 text-[10px] font-mono text-slate-300">
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Compose UI</span>
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Biometrics</span>
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">SQLCipher</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- App 2: FitPulse Health Tracker -->
-        <div class="project-card glass-card rounded-3xl p-5 border border-slate-800 hover:border-blue-400/40 transition group" data-category="iot">
-          <div class="relative w-full h-64 rounded-2xl overflow-hidden bg-slate-950 mb-4 border border-slate-800 cursor-pointer" onclick="openViewer('https://images.unsplash.com/photo-1510519138197-06b8628cbf4e?auto=format&fit=crop&w=1200&q=80', 'FitPulse: Wear OS & Mobile Real-time Health Monitor')">
-            <img src="https://images.unsplash.com/photo-1510519138197-06b8628cbf4e?auto=format&fit=crop&w=700&q=80" 
-                 alt="FitPulse Tracker" 
-                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition"></div>
-            <div class="absolute bottom-3 right-3 px-2 py-1 rounded bg-slate-900/90 border border-slate-700 text-[10px] text-cyan-300 font-mono flex items-center gap-1">
-              <i class="fa-solid fa-magnifying-glass-plus"></i> Tap to Zoom
-            </div>
-          </div>
-          <div class="space-y-2">
-            <div class="flex justify-between items-center text-[10px] font-mono">
-              <span class="text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded font-bold">HEALTH & IOT</span>
-              <span class="text-emerald-400"><i class="fa-solid fa-circle text-[8px] mr-1"></i>BLE Sync Active</span>
-            </div>
-            <h4 class="text-base font-extrabold text-white group-hover:text-blue-400 transition">FitPulse Sensor Analytics</h4>
-            <p class="text-xs text-slate-400 leading-relaxed">Companion fitness app with Bluetooth Low Energy (BLE) sensor streaming, custom Canvas graphs, and Google Health Connect.</p>
-            <div class="flex flex-wrap gap-1.5 pt-2 text-[10px] font-mono text-slate-300">
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">BLE Protocol</span>
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Canvas 60FPS</span>
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Health Connect</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- App 3: OrbitAudio Podcast Studio -->
-        <div class="project-card glass-card rounded-3xl p-5 border border-slate-800 hover:border-emerald-400/40 transition group" data-category="media">
-          <div class="relative w-full h-64 rounded-2xl overflow-hidden bg-slate-950 mb-4 border border-slate-800 cursor-pointer" onclick="openViewer('https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80', 'OrbitAudio: Background Media Player with ExoPlayer & Foreground Service')">
-            <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=700&q=80" 
-                 alt="OrbitAudio App" 
-                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition"></div>
-            <div class="absolute bottom-3 right-3 px-2 py-1 rounded bg-slate-900/90 border border-slate-700 text-[10px] text-cyan-300 font-mono flex items-center gap-1">
-              <i class="fa-solid fa-magnifying-glass-plus"></i> Tap to Zoom
-            </div>
-          </div>
-          <div class="space-y-2">
-            <div class="flex justify-between items-center text-[10px] font-mono">
-              <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-bold">MEDIA & STREAMING</span>
-              <span class="text-emerald-400"><i class="fa-solid fa-circle text-[8px] mr-1"></i>Zero Background Kill</span>
-            </div>
-            <h4 class="text-base font-extrabold text-white group-hover:text-emerald-400 transition">OrbitAudio Podcast Player</h4>
-            <p class="text-xs text-slate-400 leading-relaxed">MediaSession foreground audio playback with automated episode downloads, dynamic lockscreen notifications, and EQ tuning.</p>
-            <div class="flex flex-wrap gap-1.5 pt-2 text-[10px] font-mono text-slate-300">
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Media3 ExoPlayer</span>
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Foreground Service</span>
-              <span class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800">WorkManager</span>
-            </div>
-          </div>
-        </div>
-
+      <!-- Projects Dynamic Injected Grid -->
+      <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+        <p class="col-span-full text-center text-slate-500 py-12">Loading portfolio projects...</p>
       </div>
     </section>
 
@@ -875,11 +536,10 @@
       </div>
     </div>
 
-    <!-- 8. Call to Action Section (Matches Reference 6 Flowing Sine Waves) -->
+    <!-- 8. Call to Action Section -->
     <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 py-24 text-center relative">
       <div class="glass-card rounded-3xl p-8 sm:p-16 border border-cyan-500/30 shadow-2xl relative overflow-hidden">
         
-        <!-- Flowing Sine Waves Background (Reference Style exactly replicated) -->
         <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-30" viewBox="0 0 800 400" preserveAspectRatio="none">
           <path class="wave-line" d="M 0,200 Q 200,80 400,200 T 800,200" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
           <path class="wave-line" d="M 0,220 Q 200,320 400,220 T 800,220" fill="none" stroke="#818cf8" stroke-width="1.8" style="animation-delay: -3s;"/>
@@ -898,22 +558,16 @@
             Let's discuss your product roadmap, system architecture, performance optimization, or brand-new native build.
           </p>
 
-          <!-- Contact Buttons -->
           <div class="flex flex-wrap justify-center items-center gap-4 mb-8">
-            <a href="mailto:contact@shoaibjamshaid.dev" class="px-7 sm:px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 hover:opacity-95 text-slate-950 font-black text-xs sm:text-sm transition shadow-lg shadow-cyan-500/30 flex items-center gap-2">
+            <a id="cta-email-btn" href="#" class="px-7 sm:px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 hover:opacity-95 text-slate-950 font-black text-xs sm:text-sm transition shadow-lg shadow-cyan-500/30 flex items-center gap-2">
               <i class="fa-solid fa-envelope"></i> Book a Meeting / Email
             </a>
-            <a href="https://wa.me/923000000000?text=Hi%20Shoaib,%20let%27s%20build%20our%20Android%20app" target="_blank" rel="noopener noreferrer" class="px-7 sm:px-8 py-3.5 rounded-full bg-slate-900/90 border border-slate-700 hover:border-emerald-400 text-emerald-400 font-bold text-xs sm:text-sm tracking-wide transition flex items-center gap-2 backdrop-blur-md">
+            <a id="cta-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="px-7 sm:px-8 py-3.5 rounded-full bg-slate-900/90 border border-slate-700 hover:border-emerald-400 text-emerald-400 font-bold text-xs sm:text-sm tracking-wide transition flex items-center gap-2 backdrop-blur-md">
               <i class="fa-brands fa-whatsapp text-lg"></i> Chat with me
             </a>
           </div>
 
-          <!-- Social Proof Badges -->
-          <div class="flex flex-wrap justify-center gap-3 sm:gap-4 text-xs font-mono text-slate-400">
-            <span class="bg-slate-900/60 px-3 py-1.5 rounded-full border border-slate-800"><i class="fa-solid fa-check text-cyan-400 mr-1.5"></i> Clean Architecture</span>
-            <span class="bg-slate-900/60 px-3 py-1.5 rounded-full border border-slate-800"><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Play Store Ready</span>
-            <span class="bg-slate-900/60 px-3 py-1.5 rounded-full border border-slate-800"><i class="fa-solid fa-check text-indigo-400 mr-1.5"></i> NDA Protected</span>
-          </div>
+          <div class="flex flex-wrap justify-center gap-3 sm:gap-4 text-xs font-mono text-slate-400" id="contact-info"></div>
         </div>
 
       </div>
@@ -922,18 +576,16 @@
     <!-- Footer -->
     <footer class="text-center py-10 text-xs text-slate-500 border-t border-slate-900/80 flex flex-col sm:flex-row justify-between items-center max-w-6xl mx-auto px-6 gap-4">
       <span>&copy; 2026 Shoaib Jamshaid &bull; Android Growth Partner & Architecture Specialist</span>
-      <div class="flex gap-4 text-slate-400 text-base">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      <div class="flex gap-4 text-slate-400 text-base" id="footer-socials">
+        <a id="footer-github" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a id="footer-linkedin" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
       </div>
     </footer>
 
   </div>
 
-  <!-- Interactive JavaScript Engine -->
+  <!-- Background Canvas & Slider Engine -->
   <script>
-    // 1. Background Interactive Matrix / Neural Grid Simulation
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -952,7 +604,7 @@
     });
 
     const particles = [];
-    const count = 65;
+    const count = 55;
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
@@ -966,7 +618,6 @@
     function animateBg() {
       ctx.clearRect(0, 0, width, height);
 
-      // Connective Circuit Matrix
       for (let i = 0; i < count; i++) {
         for (let j = i + 1; j < count; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -984,7 +635,6 @@
         }
       }
 
-      // Render Nodes with gentle mouse interaction
       particles.forEach(p => {
         p.x += p.vx;
         p.y += p.vy;
@@ -992,7 +642,6 @@
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
-        // Subtle deflection/interaction with cursor
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -1011,7 +660,7 @@
     }
     animateBg();
 
-    // 2. Interactive Before/After Split Comparison Slider
+    // Comparison slider
     const compBox = document.getElementById('comparison-box');
     const compBefore = document.getElementById('comparison-before');
     const compHandle = document.getElementById('comparison-handle');
@@ -1032,54 +681,24 @@
       updateSlider(e.clientX);
     });
 
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
+    window.addEventListener('mouseup', () => { isDragging = false; });
     window.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       updateSlider(e.clientX);
     });
 
-    // Touch events for full mobile & tablet responsiveness
     compBox.addEventListener('touchstart', (e) => {
       isDragging = true;
       updateSlider(e.touches[0].clientX);
     }, { passive: true });
 
-    window.addEventListener('touchend', () => {
-      isDragging = false;
-    });
-
+    window.addEventListener('touchend', () => { isDragging = false; });
     window.addEventListener('touchmove', (e) => {
       if (!isDragging) return;
       updateSlider(e.touches[0].clientX);
     }, { passive: true });
 
-    // 3. Project Filter Logic
-    function filterProjects(category) {
-      const buttons = document.querySelectorAll('.filter-btn');
-      buttons.forEach(btn => {
-        if (btn.getAttribute('data-filter') === category) {
-          btn.classList.add('bg-cyan-500', 'text-slate-950', 'border-cyan-400');
-          btn.classList.remove('bg-slate-900', 'text-slate-300', 'border-slate-800');
-        } else {
-          btn.classList.remove('bg-cyan-500', 'text-slate-950', 'border-cyan-400');
-          btn.classList.add('bg-slate-900', 'text-slate-300', 'border-slate-800');
-        }
-      });
-
-      const cards = document.querySelectorAll('.project-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    // 4. Mobile Menu Toggle
+    // Mobile menu
     function toggleMobileMenu() {
       const menu = document.getElementById('mobile-menu');
       menu.classList.toggle('hidden');
@@ -1087,8 +706,8 @@
     }
     document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
 
-    // 5. Fullscreen Zoom Image Viewer
-    function openViewer(src, caption) {
+    // Fullscreen viewer
+    window.openViewer = function(src, caption) {
       const modal = document.getElementById('image-viewer-modal');
       const img = document.getElementById('viewer-img');
       const cap = document.getElementById('viewer-caption');
@@ -1096,17 +715,19 @@
       cap.textContent = caption;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-    }
+    };
 
-    function closeViewer() {
+    window.closeViewer = function() {
       const modal = document.getElementById('image-viewer-modal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
-    }
+    };
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeViewer();
     });
   </script>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
