@@ -11,32 +11,53 @@ async function loadProfile() {
     if (docSnap.exists()) {
       const data = docSnap.data();
       
-      // Hero & Nav
+      // Names
       if (data.name) {
         document.getElementById('hero-name').innerText = data.name;
         document.getElementById('nav-name').innerText = data.name;
+        document.getElementById('about-card-name').innerText = data.name;
       }
-      if (data.about) document.getElementById('hero-about').innerText = data.about;
+
+      // About Text
+      if (data.about) {
+        document.getElementById('hero-about').innerText = data.about;
+        document.getElementById('about-detailed-text').innerText = data.about;
+      }
+
+      // Profile DP & Large Portrait
       if (data.profileUrl) {
         document.getElementById('nav-dp').src = data.profileUrl;
+        document.getElementById('about-portrait-img').src = data.profileUrl;
       }
 
-      // WhatsApp Chat CTA in Hero
+      // WhatsApp CTAs
       if (data.whatsapp) {
-        document.getElementById('hero-whatsapp').href = `https://wa.me/${data.whatsapp}`;
+        const waLink = `https://wa.me/${data.whatsapp}`;
+        document.getElementById('hero-whatsapp').href = waLink;
+        document.getElementById('about-chat-btn').href = waLink;
+        document.getElementById('cta-whatsapp-btn').href = waLink;
       }
 
-      // Nav Links
-      if (data.github) document.getElementById('nav-github').href = data.github;
-      if (data.linkedin) document.getElementById('nav-linkedin').href = data.linkedin;
+      // Email CTA
+      if (data.email) {
+        document.getElementById('cta-email-btn').href = `mailto:${data.email}`;
+      }
+
+      // Nav and Footer Links
+      if (data.github) {
+        document.getElementById('nav-github').href = data.github;
+      }
+      if (data.linkedin) {
+        document.getElementById('nav-linkedin').href = data.linkedin;
+      }
 
       // Contact Buttons
       const contactContainer = document.getElementById('contact-info');
       contactContainer.innerHTML = `
-        ${data.email ? `<a href="mailto:${data.email}" class="px-5 py-3 rounded-full bg-slate-950 border border-slate-800 hover:border-cyan-400 text-xs sm:text-sm font-semibold transition flex items-center gap-2"><i class="fa-solid fa-envelope text-cyan-400"></i> ${data.email}</a>` : ''}
-        ${data.whatsapp ? `<a href="https://wa.me/${data.whatsapp}" target="_blank" class="px-5 py-3 rounded-full bg-slate-950 border border-slate-800 hover:border-emerald-400 text-xs sm:text-sm font-semibold text-emerald-400 transition flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> WhatsApp</a>` : ''}
-        ${data.github ? `<a href="${data.github}" target="_blank" class="px-5 py-3 rounded-full bg-slate-950 border border-slate-800 hover:border-white text-xs sm:text-sm font-semibold transition flex items-center gap-2"><i class="fa-brands fa-github text-white"></i> GitHub</a>` : ''}
-        ${data.linkedin ? `<a href="${data.linkedin}" target="_blank" class="px-5 py-3 rounded-full bg-slate-950 border border-slate-800 hover:border-sky-400 text-xs sm:text-sm font-semibold text-sky-400 transition flex items-center gap-2"><i class="fa-brands fa-linkedin text-sky-400"></i> LinkedIn</a>` : ''}
+        ${data.email ? `<a href="mailto:${data.email}" class="px-5 py-2.5 rounded-full bg-slate-950 border border-slate-800 hover:border-cyan-400 text-xs font-medium transition"><i class="fa-solid fa-envelope mr-1.5 text-cyan-400"></i>${data.email}</a>` : ''}
+        ${data.whatsapp ? `<a href="https://wa.me/${data.whatsapp}" target="_blank" class="px-5 py-2.5 rounded-full bg-slate-950 border border-slate-800 hover:border-emerald-400 text-xs font-medium text-emerald-400 transition"><i class="fa-brands fa-whatsapp mr-1.5"></i>WhatsApp</a>` : ''}
+        ${data.github ? `<a href="${data.github}" target="_blank" class="px-5 py-2.5 rounded-full bg-slate-950 border border-slate-800 hover:border-white text-xs font-medium transition"><i class="fa-brands fa-github mr-1.5"></i>GitHub</a>` : ''}
+        ${data.linkedin ? `<a href="${data.linkedin}" target="_blank" class="px-5 py-2.5 rounded-full bg-slate-950 border border-slate-800 hover:border-sky-400 text-xs font-medium text-sky-400 transition"><i class="fa-brands fa-linkedin mr-1.5"></i>LinkedIn</a>` : ''}
       `;
     }
   } catch (err) {
@@ -72,10 +93,8 @@ async function loadProjects() {
 
       card.innerHTML = `
         <div>
-          <!-- Slider Frame with exact 600px Height -->
+          <!-- Slider Frame -->
           <div class="relative w-full h-[600px] bg-[#030611] flex items-center justify-center overflow-hidden border-b border-slate-800/80 group">
-            
-            <!-- Active Image -->
             <img id="slide-img-${id}" 
                  src="${images[0]}" 
                  alt="${p.title}" 
@@ -83,12 +102,10 @@ async function loadProjects() {
                  title="Click to zoom current image"
                  onclick="viewActiveImage('${id}')">
 
-            <!-- Click indicator badge -->
             <div class="absolute bottom-4 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover:opacity-100 transition bg-black/80 px-3 py-1 rounded-full text-[10px] text-cyan-300 border border-cyan-500/30">
               <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Tap to view full size
             </div>
 
-            <!-- Left Slide Arrow -->
             ${images.length > 1 ? `
               <button onclick="changeSlide('${id}', -1)" 
                       class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/90 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 flex items-center justify-center text-xs transition shadow-lg z-10">
@@ -96,7 +113,6 @@ async function loadProjects() {
               </button>
             ` : ''}
 
-            <!-- Right Slide Arrow -->
             ${images.length > 1 ? `
               <button onclick="changeSlide('${id}', 1)" 
                       class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-900/90 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 flex items-center justify-center text-xs transition shadow-lg z-10">
@@ -104,7 +120,6 @@ async function loadProjects() {
               </button>
             ` : ''}
 
-            <!-- Counter Badge -->
             <div class="absolute top-3 right-3 bg-slate-950/80 border border-slate-800 px-2 py-0.5 rounded-full text-[10px] text-slate-300 font-mono">
               <span id="slide-index-${id}">1</span>/${images.length}
             </div>
@@ -113,7 +128,6 @@ async function loadProjects() {
           <!-- Project Details with Expandable Description -->
           <div class="p-6">
             <h4 class="text-lg font-bold mb-2 text-white">${p.title}</h4>
-            
             <div class="mb-4">
               <p id="desc-${id}" 
                  onclick="toggleDescription('${id}')" 
