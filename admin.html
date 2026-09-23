@@ -2,194 +2,180 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#070913] text-slate-100 p-6">
-  <div class="max-w-4xl mx-auto space-y-10">
-    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-      <h1 class="text-2xl font-bold text-cyan-400">Admin Control Panel</h1>
-      <div class="flex gap-4 items-center">
-        <a href="index.html" class="text-xs text-slate-400 hover:text-white">View Portfolio</a>
-        <button id="logout-btn" class="text-xs px-3 py-1.5 bg-red-500/20 text-red-400 rounded-lg">Logout</button>
+<body class="bg-[#070913] text-slate-100 min-h-screen">
+  
+  <!-- Header Bar -->
+  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <span class="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+        <i class="fa-solid fa-gauge text-lg"></i>
+      </span>
+      <div>
+        <h1 class="text-lg font-bold text-white">Admin Management Studio</h1>
+        <p class="text-xs text-slate-400">Manage profile details, apps & showcases</p>
       </div>
     </div>
-
-    <!-- Profile Edit -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-      <h2 class="text-lg font-bold mb-4 text-emerald-400">Profile Settings</h2>
-      <form id="profile-form" class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="text-xs text-slate-400">Name</label>
-            <input type="text" id="prof-name" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="text-xs text-slate-400">Title</label>
-            <input type="text" id="prof-title" placeholder="Android Developer" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">About Me</label>
-          <textarea id="prof-about" rows="3" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm"></textarea>
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">Skills (Comma separated)</label>
-          <input type="text" id="prof-skills" placeholder="Java, Kotlin, Jetpack Compose, Firebase" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label class="text-xs text-slate-400">Email</label>
-            <input type="email" id="prof-email" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="text-xs text-slate-400">WhatsApp Number</label>
-            <input type="text" id="prof-whatsapp" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="text-xs text-slate-400">GitHub Profile URL</label>
-            <input type="url" id="prof-github" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">Profile Picture</label>
-          <input type="file" id="prof-image-file" accept="image/*" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-black">
-        </div>
-        <div class="flex items-center gap-4">
-          <button type="submit" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition">Save Profile</button>
-          <span id="profile-status" class="text-xs text-cyan-300"></span>
-        </div>
-      </form>
-    </section>
-
-    <!-- Upload Android Project -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-      <h2 class="text-lg font-bold mb-4 text-cyan-400">Add New Android Project</h2>
-      <form id="project-form" class="space-y-4">
-        <div>
-          <label class="text-xs text-slate-400">App Name</label>
-          <input type="text" id="proj-title" required class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">App Description & Features</label>
-          <textarea id="proj-desc" rows="3" required class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm"></textarea>
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">Technologies Used (Comma separated)</label>
-          <input type="text" id="proj-tech" placeholder="Kotlin, MVVM, Retrofit, Room" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">Screenshots (Select up to 20 images at once)</label>
-          <input type="file" id="proj-images" accept="image/*" multiple class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-black">
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">APK Download Link (Google Drive / GitHub release URL)</label>
-          <input type="url" id="proj-apk-link" placeholder="https://drive.google.com/..." class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-        </div>
-        <div class="flex items-center gap-4">
-          <button type="submit" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold rounded-xl text-sm transition">Upload Project</button>
-          <span id="upload-status" class="text-xs text-cyan-300"></span>
-        </div>
-      </form>
-    </section>
-  </div>
-  <script type="module" src="admin.js"></script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#070913] text-slate-100 p-6">
-  <div class="max-w-4xl mx-auto space-y-10">
-    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-      <h1 class="text-2xl font-bold text-cyan-400">Admin Control Panel</h1>
-      <div class="flex gap-4 items-center">
-        <a href="index.html" class="text-xs text-slate-400 hover:text-white">View Portfolio</a>
-        <button id="logout-btn" class="text-xs px-3 py-1.5 bg-red-500/20 text-red-400 rounded-lg">Logout</button>
-      </div>
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="text-xs px-3.5 py-2 bg-slate-900 border border-slate-700 hover:border-cyan-400 rounded-lg text-slate-300 transition">
+        <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i>Live Site
+      </a>
+      <button id="logout-btn" class="text-xs px-3.5 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 rounded-lg transition font-medium">
+        <i class="fa-solid fa-arrow-right-from-bracket mr-1.5"></i>Logout
+      </button>
     </div>
+  </header>
 
-    <!-- Profile Edit -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-      <h2 class="text-lg font-bold mb-4 text-emerald-400">Profile Settings</h2>
-      <form id="profile-form" class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="text-xs text-slate-400">Name</label>
-            <input type="text" id="prof-name" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="text-xs text-slate-400">Title</label>
-            <input type="text" id="prof-title" placeholder="Android Developer" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-        </div>
+  <!-- Main Container: Left Projects Sidebar + Right Forms -->
+  <main class="max-w-7xl mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    
+    <!-- LEFT SIDE: Vertical Projects Management List -->
+    <aside class="lg:col-span-4 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 flex flex-col h-[calc(100vh-7rem)] lg:sticky lg:top-24">
+      <div class="flex justify-between items-center pb-4 border-b border-slate-800">
         <div>
-          <label class="text-xs text-slate-400">About Me</label>
-          <textarea id="prof-about" rows="3" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm"></textarea>
+          <h2 class="font-bold text-base text-cyan-400 flex items-center gap-2">
+            <i class="fa-solid fa-mobile-screen"></i> Uploaded Projects
+          </h2>
+          <p class="text-xs text-slate-400">Manage, edit, or delete items</p>
         </div>
-        <div>
-          <label class="text-xs text-slate-400">Skills (Comma separated)</label>
-          <input type="text" id="prof-skills" placeholder="Java, Kotlin, Jetpack Compose, Firebase" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label class="text-xs text-slate-400">Email</label>
-            <input type="email" id="prof-email" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="text-xs text-slate-400">WhatsApp Number</label>
-            <input type="text" id="prof-whatsapp" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="text-xs text-slate-400">GitHub Profile URL</label>
-            <input type="url" id="prof-github" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-          </div>
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">Profile Picture</label>
-          <input type="file" id="prof-image-file" accept="image/*" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-black">
-        </div>
-        <div class="flex items-center gap-4">
-          <button type="submit" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition">Save Profile</button>
-          <span id="profile-status" class="text-xs text-cyan-300"></span>
-        </div>
-      </form>
-    </section>
+        <span id="project-count" class="text-xs px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-semibold">0</span>
+      </div>
 
-    <!-- Upload Android Project -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-      <h2 class="text-lg font-bold mb-4 text-cyan-400">Add New Android Project</h2>
-      <form id="project-form" class="space-y-4">
-        <div>
-          <label class="text-xs text-slate-400">App Name</label>
-          <input type="text" id="proj-title" required class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
+      <!-- Project Items Vertical Scrollable List -->
+      <div id="admin-projects-list" class="flex-1 overflow-y-auto space-y-3 pt-4 pr-1">
+        <p class="text-xs text-slate-500 text-center py-8">Loading projects...</p>
+      </div>
+    </aside>
+
+    <!-- RIGHT SIDE: Profile & Project Upload/Edit Forms -->
+    <div class="lg:col-span-8 space-y-6">
+      
+      <!-- Profile Settings -->
+      <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6">
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fa-solid fa-user-gear text-emerald-400"></i>
+          <h2 class="text-base font-bold text-emerald-400">Profile Settings</h2>
         </div>
-        <div>
-          <label class="text-xs text-slate-400">App Description & Features</label>
-          <textarea id="proj-desc" rows="3" required class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm"></textarea>
+        <form id="profile-form" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">Full Name</label>
+              <input type="text" id="prof-name" class="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 p-2.5 rounded-xl text-sm outline-none">
+            </div>
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">Professional Title</label>
+              <input type="text" id="prof-title" placeholder="Android Developer" class="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 p-2.5 rounded-xl text-sm outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">About Me</label>
+            <textarea id="prof-about" rows="3" class="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 p-2.5 rounded-xl text-sm outline-none"></textarea>
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">Skills (Comma separated)</label>
+            <input type="text" id="prof-skills" placeholder="Java, Kotlin, Jetpack Compose, Firebase" class="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 p-2.5 rounded-xl text-sm outline-none">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">Email</label>
+              <input type="email" id="prof-email" class="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 p-2.5 rounded-xl text-sm outline-none">
+            </div>
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">WhatsApp Number</label>
+              <input type="text" id="prof-whatsapp" class="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 p-2.5 rounded-xl text-sm outline-none">
+            </div>
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">GitHub Profile URL</label>
+              <input type="url" id="prof-github" class="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 p-2.5 rounded-xl text-sm outline-none">
+            </div>
+          </div>
+
+          <!-- Profile Image Selector (Filename Display) -->
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">Profile Picture</label>
+            <div class="flex flex-wrap items-center gap-3 bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <label class="cursor-pointer px-4 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 text-xs font-semibold rounded-lg border border-emerald-500/40">
+                Choose Image
+                <input type="file" id="prof-image-file" accept="image/*" class="hidden">
+              </label>
+              <span id="prof-file-name" class="text-xs text-slate-400 italic">No file selected</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4 pt-2">
+            <button type="submit" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-sm transition">
+              Save Profile
+            </button>
+            <span id="profile-status" class="text-xs text-cyan-300 font-medium"></span>
+          </div>
+        </form>
+      </section>
+
+      <!-- Add / Edit Project Form -->
+      <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-cube text-cyan-400"></i>
+            <h2 id="project-form-heading" class="text-base font-bold text-cyan-400">Add New Android Project</h2>
+          </div>
+          <button id="cancel-edit-btn" type="button" class="text-xs text-slate-400 hover:text-white hidden">
+            <i class="fa-solid fa-xmark mr-1"></i>Cancel Edit
+          </button>
         </div>
-        <div>
-          <label class="text-xs text-slate-400">Technologies Used (Comma separated)</label>
-          <input type="text" id="proj-tech" placeholder="Kotlin, MVVM, Retrofit, Room" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">Screenshots (Select up to 20 images at once)</label>
-          <input type="file" id="proj-images" accept="image/*" multiple class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-500 file:text-black">
-        </div>
-        <div>
-          <label class="text-xs text-slate-400">APK Download Link (Google Drive / GitHub release URL)</label>
-          <input type="url" id="proj-apk-link" placeholder="https://drive.google.com/..." class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-lg text-sm">
-        </div>
-        <div class="flex items-center gap-4">
-          <button type="submit" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold rounded-xl text-sm transition">Upload Project</button>
-          <span id="upload-status" class="text-xs text-cyan-300"></span>
-        </div>
-      </form>
-    </section>
-  </div>
+
+        <form id="project-form" class="space-y-4">
+          <!-- Hidden field to hold doc id when editing -->
+          <input type="hidden" id="editing-proj-id" value="">
+
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">App Name</label>
+            <input type="text" id="proj-title" required class="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 p-2.5 rounded-xl text-sm outline-none">
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">App Description & Features</label>
+            <textarea id="proj-desc" rows="3" required class="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 p-2.5 rounded-xl text-sm outline-none"></textarea>
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">Technologies Used (Comma separated)</label>
+            <input type="text" id="proj-tech" placeholder="Kotlin, Jetpack Compose, Retrofit, Room" class="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 p-2.5 rounded-xl text-sm outline-none">
+          </div>
+          
+          <!-- Screenshots Selector (Filename Display) -->
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">Screenshots (Up to 20 images)</label>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 space-y-2">
+              <label class="cursor-pointer inline-block px-4 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 text-xs font-semibold rounded-lg border border-cyan-500/40">
+                Choose Screenshots
+                <input type="file" id="proj-images" accept="image/*" multiple class="hidden">
+              </label>
+              <div id="proj-files-container" class="flex flex-wrap gap-2 text-xs text-slate-400">
+                <span class="italic text-slate-500">No files selected</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">APK Download Link</label>
+            <input type="url" id="proj-apk-link" placeholder="https://drive.google.com/..." class="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 p-2.5 rounded-xl text-sm outline-none">
+          </div>
+
+          <div class="flex items-center gap-4 pt-2">
+            <button id="proj-submit-btn" type="submit" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold rounded-xl text-sm transition">
+              Upload Project
+            </button>
+            <span id="upload-status" class="text-xs text-cyan-300 font-medium"></span>
+          </div>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
   <script type="module" src="admin.js"></script>
 </body>
 </html>
