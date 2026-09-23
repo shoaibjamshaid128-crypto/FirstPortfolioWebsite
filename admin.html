@@ -101,7 +101,6 @@
           <div>
             <label class="text-xs text-slate-400 block mb-1">Profile Picture (Click to crop)</label>
             <div class="flex items-center gap-4 bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <!-- Clickable DP Preview -->
               <div id="prof-preview-container" class="relative group cursor-pointer w-24 h-24 rounded-full border-2 border-dashed border-slate-700 hover:border-emerald-400 overflow-hidden flex items-center justify-center bg-slate-900 shrink-0">
                 <img id="prof-preview-img" src="https://via.placeholder.com/150" alt="DP Preview" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-[10px] text-emerald-400 transition font-bold">
@@ -167,7 +166,6 @@
               </label>
             </div>
             
-            <!-- 150x150 Box Container -->
             <div id="proj-images-grid" class="flex flex-wrap gap-3 p-3 bg-slate-950 rounded-xl border border-slate-800 min-h-[165px]">
               <p id="no-images-placeholder" class="text-xs text-slate-500 m-auto">No screenshots selected yet.</p>
             </div>
@@ -190,7 +188,7 @@
     </div>
   </main>
 
-  <!-- POPUP 1: Full-Size Image Preview Modal -->
+  <!-- Full-Size Image Preview Modal -->
   <div id="image-viewer-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
     <button onclick="closeImageViewer()" class="absolute top-6 right-6 text-white text-3xl hover:text-red-400 transition">&times;</button>
     <div class="max-w-4xl max-h-[85vh] flex items-center justify-center">
@@ -198,7 +196,7 @@
     </div>
   </div>
 
-  <!-- POPUP 2: DP Crop Modal (Cropper.js) -->
+  <!-- DP Crop Modal -->
   <div id="crop-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 max-w-xl w-full flex flex-col space-y-4">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
