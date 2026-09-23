@@ -7,6 +7,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <!-- Cropper.js for DP Crop feature -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 </head>
 <body class="bg-[#070913] text-slate-100 min-h-screen">
   
@@ -18,7 +21,7 @@
       </span>
       <div>
         <h1 class="text-lg font-bold text-white">Admin Management Studio</h1>
-        <p class="text-xs text-slate-400">Manage profile details, apps & showcases</p>
+        <p class="text-xs text-slate-400">Manage profile details, apps & screenshots</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -41,12 +44,11 @@
           <h2 class="font-bold text-base text-cyan-400 flex items-center gap-2">
             <i class="fa-solid fa-mobile-screen"></i> Uploaded Projects
           </h2>
-          <p class="text-xs text-slate-400">Manage, edit, or delete items</p>
+          <p class="text-xs text-slate-400">Click edit or delete</p>
         </div>
         <span id="project-count" class="text-xs px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-semibold">0</span>
       </div>
 
-      <!-- Project Items Vertical Scrollable List -->
       <div id="admin-projects-list" class="flex-1 overflow-y-auto space-y-3 pt-4 pr-1">
         <p class="text-xs text-slate-500 text-center py-8">Loading projects...</p>
       </div>
@@ -95,15 +97,26 @@
             </div>
           </div>
 
-          <!-- Profile Image Selector (Filename Display) -->
+          <!-- Profile DP with Crop trigger -->
           <div>
-            <label class="text-xs text-slate-400 block mb-1">Profile Picture</label>
-            <div class="flex flex-wrap items-center gap-3 bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-              <label class="cursor-pointer px-4 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 text-xs font-semibold rounded-lg border border-emerald-500/40">
-                Choose Image
-                <input type="file" id="prof-image-file" accept="image/*" class="hidden">
-              </label>
-              <span id="prof-file-name" class="text-xs text-slate-400 italic">No file selected</span>
+            <label class="text-xs text-slate-400 block mb-1">Profile Picture (Click to crop)</label>
+            <div class="flex items-center gap-4 bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <!-- Clickable DP Preview -->
+              <div id="prof-preview-container" class="relative group cursor-pointer w-24 h-24 rounded-full border-2 border-dashed border-slate-700 hover:border-emerald-400 overflow-hidden flex items-center justify-center bg-slate-900 shrink-0">
+                <img id="prof-preview-img" src="https://via.placeholder.com/150" alt="DP Preview" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-[10px] text-emerald-400 transition font-bold">
+                  <i class="fa-solid fa-crop-simple text-sm mb-1"></i>
+                  <span>Crop DP</span>
+                </div>
+              </div>
+
+              <div class="space-y-1.5 flex-1">
+                <label class="cursor-pointer inline-block px-4 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 text-xs font-semibold rounded-lg border border-emerald-500/40">
+                  Select DP Image
+                  <input type="file" id="prof-image-file" accept="image/*" class="hidden">
+                </label>
+                <p class="text-[11px] text-slate-400">Click on DP avatar or button to select and crop to perfect 1:1 circle/square.</p>
+              </div>
             </div>
           </div>
 
@@ -129,7 +142,6 @@
         </div>
 
         <form id="project-form" class="space-y-4">
-          <!-- Hidden field to hold doc id when editing -->
           <input type="hidden" id="editing-proj-id" value="">
 
           <div>
@@ -145,17 +157,19 @@
             <input type="text" id="proj-tech" placeholder="Kotlin, Jetpack Compose, Retrofit, Room" class="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 p-2.5 rounded-xl text-sm outline-none">
           </div>
           
-          <!-- Screenshots Selector (Filename Display) -->
+          <!-- Screenshots: 150x150 Grid with Preview & Delete -->
           <div>
-            <label class="text-xs text-slate-400 block mb-1">Screenshots (Up to 20 images)</label>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 space-y-2">
-              <label class="cursor-pointer inline-block px-4 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 text-xs font-semibold rounded-lg border border-cyan-500/40">
-                Choose Screenshots
+            <div class="flex items-center justify-between mb-2">
+              <label class="text-xs text-slate-400">Project Screenshots (Max 150x150 each, click to view, ❌ to delete)</label>
+              <label class="cursor-pointer px-3 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 text-xs font-semibold rounded-lg border border-cyan-500/40">
+                <i class="fa-solid fa-plus mr-1"></i> Add Screenshots
                 <input type="file" id="proj-images" accept="image/*" multiple class="hidden">
               </label>
-              <div id="proj-files-container" class="flex flex-wrap gap-2 text-xs text-slate-400">
-                <span class="italic text-slate-500">No files selected</span>
-              </div>
+            </div>
+            
+            <!-- 150x150 Box Container -->
+            <div id="proj-images-grid" class="flex flex-wrap gap-3 p-3 bg-slate-950 rounded-xl border border-slate-800 min-h-[165px]">
+              <p id="no-images-placeholder" class="text-xs text-slate-500 m-auto">No screenshots selected yet.</p>
             </div>
           </div>
 
@@ -175,6 +189,35 @@
 
     </div>
   </main>
+
+  <!-- POPUP 1: Full-Size Image Preview Modal -->
+  <div id="image-viewer-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
+    <button onclick="closeImageViewer()" class="absolute top-6 right-6 text-white text-3xl hover:text-red-400 transition">&times;</button>
+    <div class="max-w-4xl max-h-[85vh] flex items-center justify-center">
+      <img id="modal-full-img" src="" alt="Full View" class="max-w-full max-h-[85vh] object-contain rounded-xl border border-slate-800 shadow-2xl">
+    </div>
+  </div>
+
+  <!-- POPUP 2: DP Crop Modal (Cropper.js) -->
+  <div id="crop-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 max-w-xl w-full flex flex-col space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-emerald-400 text-sm flex items-center gap-2">
+          <i class="fa-solid fa-crop-simple"></i> Crop Profile Picture (1:1 DP)
+        </h3>
+        <button onclick="closeCropModal()" class="text-slate-400 hover:text-white text-xl">&times;</button>
+      </div>
+
+      <div class="w-full h-80 bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center">
+        <img id="cropper-image" src="" alt="To Crop" class="max-h-full">
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button onclick="closeCropModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-xl transition">Cancel</button>
+        <button id="apply-crop-btn" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs rounded-xl transition">Crop & Apply</button>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="admin.js"></script>
 </body>
