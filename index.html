@@ -15,7 +15,7 @@
   <div class="glow-blob top-10 left-10"></div>
   <div class="glow-blob bottom-10 right-10"></div>
 
-  <!-- Navbar (Admin Link Hidden) -->
+  <!-- Navbar -->
   <nav class="sticky top-0 z-50 backdrop-blur-md bg-[#070913]/80 border-b border-slate-800 px-6 py-4 flex justify-between items-center max-w-7xl mx-auto">
     <a href="#" class="text-xl sm:text-2xl font-bold gradient-text flex items-center">
       <i class="fa-brands fa-android text-emerald-400 mr-2"></i>DevPortfolio
@@ -69,16 +69,18 @@
   <section id="projects" class="max-w-7xl mx-auto px-6 py-20">
     <div class="text-center mb-14">
       <h3 class="text-3xl sm:text-4xl font-bold mb-3"><span class="gradient-text">Featured Android Projects</span></h3>
-      <p class="text-slate-400">Download APKs, explore UI screenshots and architecture</p>
+      <p class="text-slate-400">Explore mobile UI screenshots (use arrows to slide), tap image for full size view</p>
     </div>
-    <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start"></div>
   </section>
 
-  <!-- Project Screenshots Modal -->
-  <div id="gallery-modal" class="fixed inset-0 z-50 bg-black/90 hidden flex-col items-center justify-center p-4">
-    <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-3xl hover:text-red-400">&times;</button>
-    <h4 id="modal-title" class="text-xl font-bold text-cyan-400 mb-4 text-center">Screenshots Gallery</h4>
-    <div id="modal-images" class="flex flex-wrap gap-4 justify-center overflow-y-auto max-h-[75vh] p-4 max-w-5xl"></div>
+  <!-- Single Fullscreen Image Viewer Modal -->
+  <div id="image-viewer-modal" class="fixed inset-0 z-50 bg-black/95 hidden items-center justify-center p-4 backdrop-blur-md">
+    <button onclick="closeViewer()" class="absolute top-5 right-6 text-white text-4xl hover:text-red-400 transition leading-none z-10">&times;</button>
+    <div class="relative max-w-4xl max-h-[90vh] flex flex-col items-center">
+      <img id="viewer-img" src="" alt="Full App Screenshot" class="max-w-full max-h-[85vh] object-contain rounded-2xl border border-slate-700 shadow-2xl">
+      <p id="viewer-caption" class="text-xs text-slate-400 mt-3 font-medium tracking-wide"></p>
+    </div>
   </div>
 
   <!-- Contact Section -->
@@ -94,9 +96,10 @@
 
   <script type="module" src="app.js"></script>
   <script>
-    function closeModal() {
-      document.getElementById('gallery-modal').classList.add('hidden');
-      document.getElementById('gallery-modal').classList.remove('flex');
+    function closeViewer() {
+      const modal = document.getElementById('image-viewer-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
     }
   </script>
 </body>
