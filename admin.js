@@ -14,7 +14,7 @@ import {
 
 let projectsCache = {};
 let currentProjectImages = [];
-let croppedProfileDataUrl = null; // Store base64 data directly
+let croppedProfileDataUrl = null;
 let cropperInstance = null;
 
 // Auth check
@@ -31,13 +31,36 @@ document.getElementById('logout-btn').addEventListener('click', () => {
   signOut(auth).then(() => window.location.href = 'login.html');
 });
 
-// Helper: Convert File to Base64 (Reliable, no external API/CORS blocks)
-function fileToBase64(file) {
+// Auto-compress & Resize Image (Firestore 1MB limit bypass karne ke liye)
+function compressAndConvertImage(file, maxWidth = 800, quality = 0.7) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
     reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Lightweight optimized Base64
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = (err) => reject(err);
+    };
+    reader.onerror = (err) => reject(err);
   });
 }
 
@@ -87,7 +110,7 @@ function openCropper(imageSrc) {
   if (cropperInstance) cropperInstance.destroy();
 
   cropperInstance = new Cropper(cropperImg, {
-    aspectRatio: 1, // 1:1 Square
+    aspectRatio: 1,
     viewMode: 2,
     autoCropArea: 0.9,
     responsive: true
@@ -107,13 +130,11 @@ window.closeCropModal = function() {
 document.getElementById('apply-crop-btn').addEventListener('click', () => {
   if (!cropperInstance) return;
 
-  // Generate lightweight optimized DP
   const canvas = cropperInstance.getCroppedCanvas({
-    width: 320,
-    height: 320
+    width: 250,
+    height: 250
   });
 
-  // Base64 Data URL (0.8 quality for fast storage)
   croppedProfileDataUrl = canvas.toDataURL('image/jpeg', 0.8);
   document.getElementById('prof-preview-img').src = croppedProfileDataUrl;
   closeCropModal();
@@ -141,7 +162,7 @@ async function loadExistingProfile() {
   }
 }
 
-// Save Profile (Instant Save)
+// Save Profile
 document.getElementById('profile-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const status = document.getElementById('profile-status');
@@ -158,13 +179,11 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
       github: document.getElementById('prof-github').value,
     };
 
-    // If a new DP was cropped, save it
     if (croppedProfileDataUrl) {
       profileData.profileUrl = croppedProfileDataUrl;
     }
 
     await setDoc(doc(db, "portfolio", "profile"), profileData, { merge: true });
-    
     status.innerText = "Profile updated successfully!";
     setTimeout(() => { status.innerText = ''; }, 3000);
   } catch (err) {
@@ -179,13 +198,18 @@ const projImagesInput = document.getElementById('proj-images');
 
 projImagesInput.addEventListener('change', async (e) => {
   const files = Array.from(e.target.files);
-  for (const file of files) {
-    const base64Url = await fileToBase64(file);
+  const status = document.getElementById('upload-status');
+  status.innerText = "Optimizing images...";
+
+  for (let i = 0; i < files.length; i++) {
+    const compressedUrl = await compressAndConvertImage(files[i], 800, 0.7);
     currentProjectImages.push({
       type: 'base64',
-      url: base64Url
+      url: compressedUrl
     });
   }
+  
+  status.innerText = "";
   renderProjectScreenshots();
   projImagesInput.value = '';
 });
@@ -321,7 +345,7 @@ function resetProjectForm() {
   document.getElementById('upload-status').innerText = '';
 }
 
-// Project Submit
+// Project Submit (Instant Lightweight Save)
 document.getElementById('project-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const status = document.getElementById('upload-status');
