@@ -72,7 +72,7 @@ async function loadProjects() {
           <!-- Slider Frame with exact 600px Height -->
           <div class="relative w-full h-[600px] bg-slate-950 flex items-center justify-center overflow-hidden border-b border-slate-800 group">
             
-            <!-- Active Image (Click to View Full Size) -->
+            <!-- Active Image -->
             <img id="slide-img-${id}" 
                  src="${images[0]}" 
                  alt="${p.title}" 
@@ -85,7 +85,7 @@ async function loadProjects() {
               <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Tap to view full size
             </div>
 
-            <!-- Left Slide Arrow (shown if > 1 image) -->
+            <!-- Left Slide Arrow -->
             ${images.length > 1 ? `
               <button onclick="changeSlide('${id}', -1)" 
                       class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-900/80 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 flex items-center justify-center text-sm transition shadow-lg z-10">
@@ -93,7 +93,7 @@ async function loadProjects() {
               </button>
             ` : ''}
 
-            <!-- Right Slide Arrow (shown if > 1 image) -->
+            <!-- Right Slide Arrow -->
             ${images.length > 1 ? `
               <button onclick="changeSlide('${id}', 1)" 
                       class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-slate-900/80 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 flex items-center justify-center text-sm transition shadow-lg z-10">
@@ -107,10 +107,25 @@ async function loadProjects() {
             </div>
           </div>
 
-          <!-- Project Details -->
+          <!-- Project Details with Expandable Description -->
           <div class="p-6">
             <h4 class="text-xl font-bold mb-2 text-white">${p.title}</h4>
-            <p class="text-slate-400 text-sm mb-4 leading-relaxed line-clamp-3">${p.description}</p>
+            
+            <div class="mb-4">
+              <p id="desc-${id}" 
+                 onclick="toggleDescription('${id}')" 
+                 class="text-slate-400 text-sm leading-relaxed line-clamp-3 cursor-pointer hover:text-slate-200 transition" 
+                 title="Click to view full description">
+                ${p.description}
+              </p>
+              <button type="button" 
+                      id="desc-btn-${id}" 
+                      onclick="toggleDescription('${id}')" 
+                      class="text-xs text-cyan-400 hover:text-cyan-300 mt-1.5 font-medium flex items-center gap-1 transition">
+                <span>Read more</span> <i class="fa-solid fa-angle-down text-[10px]"></i>
+              </button>
+            </div>
+
             <div class="flex flex-wrap gap-1.5 mb-2">
               ${(p.techStack || '').split(',').map(tag => tag.trim() ? `<span class="text-xs bg-slate-800/80 px-2.5 py-1 rounded-lg text-cyan-300 border border-slate-700">${tag.trim()}</span>` : '').join('')}
             </div>
@@ -134,6 +149,23 @@ async function loadProjects() {
   }
 }
 
+// Expand / Collapse Description Logic
+window.toggleDescription = function(id) {
+  const descEl = document.getElementById(`desc-${id}`);
+  const btnEl = document.getElementById(`desc-btn-${id}`);
+  if (!descEl || !btnEl) return;
+
+  const isCollapsed = descEl.classList.contains('line-clamp-3');
+
+  if (isCollapsed) {
+    descEl.classList.remove('line-clamp-3');
+    btnEl.innerHTML = `<span>Show less</span> <i class="fa-solid fa-angle-up text-[10px]"></i>`;
+  } else {
+    descEl.classList.add('line-clamp-3');
+    btnEl.innerHTML = `<span>Read more</span> <i class="fa-solid fa-angle-down text-[10px]"></i>`;
+  }
+};
+
 // Side Arrows Click Handler
 window.changeSlide = function(projectId, direction) {
   const state = projectSliderState[projectId];
@@ -141,12 +173,11 @@ window.changeSlide = function(projectId, direction) {
 
   state.currentIndex += direction;
   if (state.currentIndex < 0) {
-    state.currentIndex = state.images.length - 1; // loop to last
+    state.currentIndex = state.images.length - 1;
   } else if (state.currentIndex >= state.images.length) {
-    state.currentIndex = 0; // loop to first
+    state.currentIndex = 0;
   }
 
-  // Update image and counter
   const imgEl = document.getElementById(`slide-img-${projectId}`);
   const counterEl = document.getElementById(`slide-index-${projectId}`);
 
@@ -154,7 +185,7 @@ window.changeSlide = function(projectId, direction) {
   counterEl.innerText = state.currentIndex + 1;
 };
 
-// Current Active Image Full View Click Handler
+// Full View Modal
 window.viewActiveImage = function(projectId) {
   const state = projectSliderState[projectId];
   if (!state) return;
