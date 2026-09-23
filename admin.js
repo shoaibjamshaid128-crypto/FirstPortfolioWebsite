@@ -1,5 +1,5 @@
 // admin.js
-import { db, auth, storage } from "./firebase-config.js";
+import { db, auth } from "./firebase-config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { 
   doc, 
@@ -11,15 +11,10 @@ import {
   updateDoc, 
   onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { 
-  ref, 
-  uploadBytes, 
-  getDownloadURL 
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 let projectsCache = {};
 let currentProjectImages = [];
-let croppedProfileBlob = null;
+let croppedProfileDataUrl = null; // Store base64 data directly
 let cropperInstance = null;
 
 // Auth check
@@ -36,12 +31,14 @@ document.getElementById('logout-btn').addEventListener('click', () => {
   signOut(auth).then(() => window.location.href = 'login.html');
 });
 
-// Firebase Storage direct reliable upload
-async function uploadToFirebaseStorage(fileOrBlob, folder = "uploads") {
-  const uniqueName = `${Date.now()}_${Math.random().toString(36).substring(7)}`;
-  const storageRef = ref(storage, `${folder}/${uniqueName}`);
-  const snapshot = await uploadBytes(storageRef, fileOrBlob);
-  return await getDownloadURL(snapshot.ref);
+// Helper: Convert File to Base64 (Reliable, no external API/CORS blocks)
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+    reader.readAsDataURL(file);
+  });
 }
 
 /* ==========================================================
@@ -90,7 +87,7 @@ function openCropper(imageSrc) {
   if (cropperInstance) cropperInstance.destroy();
 
   cropperInstance = new Cropper(cropperImg, {
-    aspectRatio: 1,
+    aspectRatio: 1, // 1:1 Square
     viewMode: 2,
     autoCropArea: 0.9,
     responsive: true
@@ -110,16 +107,16 @@ window.closeCropModal = function() {
 document.getElementById('apply-crop-btn').addEventListener('click', () => {
   if (!cropperInstance) return;
 
+  // Generate lightweight optimized DP
   const canvas = cropperInstance.getCroppedCanvas({
-    width: 400,
-    height: 400
+    width: 320,
+    height: 320
   });
 
-  canvas.toBlob((blob) => {
-    croppedProfileBlob = blob;
-    document.getElementById('prof-preview-img').src = URL.createObjectURL(blob);
-    closeCropModal();
-  }, 'image/jpeg', 0.9);
+  // Base64 Data URL (0.8 quality for fast storage)
+  croppedProfileDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+  document.getElementById('prof-preview-img').src = croppedProfileDataUrl;
+  closeCropModal();
 });
 
 // Load Profile
@@ -144,19 +141,13 @@ async function loadExistingProfile() {
   }
 }
 
-// Save Profile Form
+// Save Profile (Instant Save)
 document.getElementById('profile-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const status = document.getElementById('profile-status');
   status.innerText = "Saving profile...";
 
   try {
-    let profileUrl = null;
-    if (croppedProfileBlob) {
-      status.innerText = "Uploading DP to Firebase...";
-      profileUrl = await uploadToFirebaseStorage(croppedProfileBlob, "profile");
-    }
-
     const profileData = {
       name: document.getElementById('prof-name').value,
       title: document.getElementById('prof-title').value,
@@ -166,9 +157,14 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
       whatsapp: document.getElementById('prof-whatsapp').value,
       github: document.getElementById('prof-github').value,
     };
-    if (profileUrl) profileData.profileUrl = profileUrl;
+
+    // If a new DP was cropped, save it
+    if (croppedProfileDataUrl) {
+      profileData.profileUrl = croppedProfileDataUrl;
+    }
 
     await setDoc(doc(db, "portfolio", "profile"), profileData, { merge: true });
+    
     status.innerText = "Profile updated successfully!";
     setTimeout(() => { status.innerText = ''; }, 3000);
   } catch (err) {
@@ -181,16 +177,15 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
    ========================================================== */
 const projImagesInput = document.getElementById('proj-images');
 
-projImagesInput.addEventListener('change', (e) => {
+projImagesInput.addEventListener('change', async (e) => {
   const files = Array.from(e.target.files);
-  files.forEach(file => {
-    const previewUrl = URL.createObjectURL(file);
+  for (const file of files) {
+    const base64Url = await fileToBase64(file);
     currentProjectImages.push({
-      type: 'new',
-      url: previewUrl,
-      file: file
+      type: 'base64',
+      url: base64Url
     });
-  });
+  }
   renderProjectScreenshots();
   projImagesInput.value = '';
 });
@@ -292,9 +287,8 @@ window.editProject = function(id) {
   document.getElementById('cancel-edit-btn').classList.remove('hidden');
 
   currentProjectImages = (p.images || []).map(url => ({
-    type: 'existing',
-    url: url,
-    file: null
+    type: 'base64',
+    url: url
   }));
   renderProjectScreenshots();
 
@@ -334,21 +328,10 @@ document.getElementById('project-form').addEventListener('submit', async (e) => 
   const editId = document.getElementById('editing-proj-id').value;
   const isEditing = Boolean(editId);
 
-  status.innerText = "Processing screenshots...";
+  status.innerText = "Saving project...";
 
   try {
-    const finalImageUrls = [];
-
-    for (let i = 0; i < currentProjectImages.length; i++) {
-      const item = currentProjectImages[i];
-      if (item.type === 'existing') {
-        finalImageUrls.push(item.url);
-      } else if (item.type === 'new' && item.file) {
-        status.innerText = `Uploading screenshot ${i + 1} of ${currentProjectImages.length}...`;
-        const uploadedUrl = await uploadToFirebaseStorage(item.file, "projects");
-        finalImageUrls.push(uploadedUrl);
-      }
-    }
+    const finalImageUrls = currentProjectImages.map(item => item.url);
 
     const payload = {
       title: document.getElementById('proj-title').value,
@@ -360,11 +343,9 @@ document.getElementById('project-form').addEventListener('submit', async (e) => 
     };
 
     if (isEditing) {
-      status.innerText = "Saving changes...";
       await updateDoc(doc(db, "projects", editId), payload);
       status.innerText = "Project updated successfully!";
     } else {
-      status.innerText = "Saving new project...";
       payload.createdAt = new Date();
       await addDoc(collection(db, "projects"), payload);
       status.innerText = "Project uploaded successfully!";
