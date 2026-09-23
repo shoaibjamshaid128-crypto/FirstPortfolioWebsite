@@ -12,8 +12,14 @@ import {
   onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Cache for loaded projects
 let projectsCache = {};
+
+// Project screenshots state: contains { type: 'existing'|'new', url: string, file: File|null }
+let currentProjectImages = [];
+
+// Profile DP State
+let croppedProfileBlob = null;
+let cropperInstance = null;
 
 // Auth check
 onAuthStateChanged(auth, (user) => {
@@ -29,11 +35,11 @@ document.getElementById('logout-btn').addEventListener('click', () => {
   signOut(auth).then(() => window.location.href = 'login.html');
 });
 
-// ImgBB Upload
-async function uploadToImgBB(file) {
+// ImgBB Upload helper (accepts File or Blob)
+async function uploadToImgBB(fileOrBlob) {
   const apiKey = "2d8f6f592237eb3b723528f117c76882";
   const formData = new FormData();
-  formData.append("image", file);
+  formData.append("image", fileOrBlob);
   const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
     method: "POST",
     body: formData
@@ -43,40 +49,85 @@ async function uploadToImgBB(file) {
   throw new Error("Image upload failed");
 }
 
-// Display selected Profile image file name
-document.getElementById('prof-image-file').addEventListener('change', (e) => {
-  const label = document.getElementById('prof-file-name');
-  if (e.target.files.length > 0) {
-    label.innerText = `Selected: ${e.target.files[0].name}`;
-    label.classList.remove('italic', 'text-slate-400');
-    label.classList.add('text-emerald-400');
-  } else {
-    label.innerText = 'No file selected';
-    label.classList.remove('text-emerald-400');
-    label.classList.add('italic', 'text-slate-400');
+/* ==========================================================
+   IMAGE VIEWER MODAL
+   ========================================================== */
+window.openImageViewer = function(url) {
+  const modal = document.getElementById('image-viewer-modal');
+  document.getElementById('modal-full-img').src = url;
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+};
+
+window.closeImageViewer = function() {
+  const modal = document.getElementById('image-viewer-modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+};
+
+/* ==========================================================
+   PROFILE DP CROPPING (Cropper.js)
+   ========================================================== */
+const profFileInput = document.getElementById('prof-image-file');
+const cropperImg = document.getElementById('cropper-image');
+const cropModal = document.getElementById('crop-modal');
+
+document.getElementById('prof-preview-container').addEventListener('click', () => {
+  profFileInput.click();
+});
+
+profFileInput.addEventListener('change', (e) => {
+  if (e.target.files && e.target.files.length > 0) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      openCropper(event.target.result);
+    };
+    reader.readAsDataURL(file);
   }
 });
 
-// Display selected Project screenshots file names
-document.getElementById('proj-images').addEventListener('change', (e) => {
-  const container = document.getElementById('proj-files-container');
-  container.innerHTML = '';
-  const files = Array.from(e.target.files).slice(0, 20);
+function openCropper(imageSrc) {
+  cropperImg.src = imageSrc;
+  cropModal.classList.remove('hidden');
+  cropModal.classList.add('flex');
 
-  if (files.length === 0) {
-    container.innerHTML = '<span class="italic text-slate-500">No files selected</span>';
-    return;
-  }
+  if (cropperInstance) cropperInstance.destroy();
 
-  files.forEach(file => {
-    const badge = document.createElement('span');
-    badge.className = 'px-2.5 py-1 bg-slate-900 border border-slate-700 text-cyan-300 rounded-lg text-xs truncate max-w-[200px]';
-    badge.innerText = file.name;
-    container.appendChild(badge);
+  cropperInstance = new Cropper(cropperImg, {
+    aspectRatio: 1, // 1:1 Square/DP
+    viewMode: 2,
+    autoCropArea: 0.9,
+    responsive: true
   });
+}
+
+window.closeCropModal = function() {
+  cropModal.classList.add('hidden');
+  cropModal.classList.remove('flex');
+  if (cropperInstance) {
+    cropperInstance.destroy();
+    cropperInstance = null;
+  }
+  profFileInput.value = '';
+};
+
+document.getElementById('apply-crop-btn').addEventListener('click', () => {
+  if (!cropperInstance) return;
+
+  const canvas = cropperInstance.getCroppedCanvas({
+    width: 400,
+    height: 400
+  });
+
+  canvas.toBlob((blob) => {
+    croppedProfileBlob = blob;
+    document.getElementById('prof-preview-img').src = URL.createObjectURL(blob);
+    closeCropModal();
+  }, 'image/jpeg', 0.9);
 });
 
-// Load profile data
+// Load Profile
 async function loadExistingProfile() {
   try {
     const snap = await getDoc(doc(db, "portfolio", "profile"));
@@ -89,25 +140,26 @@ async function loadExistingProfile() {
       document.getElementById('prof-email').value = d.email || '';
       document.getElementById('prof-whatsapp').value = d.whatsapp || '';
       document.getElementById('prof-github').value = d.github || '';
+      if (d.profileUrl) {
+        document.getElementById('prof-preview-img').src = d.profileUrl;
+      }
     }
   } catch (err) {
-    console.error("Error loading profile:", err);
+    console.error("Profile load error:", err);
   }
 }
 
-// Save Profile Form
+// Save Profile
 document.getElementById('profile-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const status = document.getElementById('profile-status');
   status.innerText = "Saving profile...";
 
   try {
-    const fileInput = document.getElementById('prof-image-file');
     let profileUrl = null;
-
-    if (fileInput.files.length > 0) {
-      status.innerText = "Uploading image...";
-      profileUrl = await uploadToImgBB(fileInput.files[0]);
+    if (croppedProfileBlob) {
+      status.innerText = "Uploading cropped DP...";
+      profileUrl = await uploadToImgBB(croppedProfileBlob);
     }
 
     const profileData = {
@@ -129,7 +181,74 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
   }
 });
 
-// Realtime Listener for vertical left sidebar projects
+/* ==========================================================
+   150x150 PROJECT SCREENSHOTS GRID (Render + Delete + Click View)
+   ========================================================== */
+const projImagesInput = document.getElementById('proj-images');
+
+projImagesInput.addEventListener('change', (e) => {
+  const files = Array.from(e.target.files);
+  files.forEach(file => {
+    const previewUrl = URL.createObjectURL(file);
+    currentProjectImages.push({
+      type: 'new',
+      url: previewUrl,
+      file: file
+    });
+  });
+  renderProjectScreenshots();
+  projImagesInput.value = ''; // Reset input so same file can be re-selected if needed
+});
+
+function renderProjectScreenshots() {
+  const grid = document.getElementById('proj-images-grid');
+  grid.innerHTML = '';
+
+  if (currentProjectImages.length === 0) {
+    grid.innerHTML = '<p id="no-images-placeholder" class="text-xs text-slate-500 m-auto">No screenshots selected yet.</p>';
+    return;
+  }
+
+  currentProjectImages.forEach((imgObj, index) => {
+    // 150px x 150px container
+    const box = document.createElement('div');
+    box.className = "relative group w-[150px] h-[150px] rounded-xl overflow-hidden border border-slate-700 bg-slate-900 shadow-md flex-shrink-0 cursor-pointer";
+
+    box.innerHTML = `
+      <img src="${imgObj.url}" alt="Screenshot" class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
+      
+      <!-- Overlay text -->
+      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center pointer-events-none">
+        <span class="text-xs text-white font-medium bg-black/60 px-2 py-1 rounded-md"><i class="fa-solid fa-eye mr-1"></i> View</span>
+      </div>
+
+      <!-- Delete Cross Button -->
+      <button type="button" class="delete-btn absolute top-2 right-2 w-7 h-7 bg-red-600/90 hover:bg-red-700 text-white rounded-full flex items-center justify-center text-xs shadow-lg transition z-10" title="Delete image">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    `;
+
+    // Click on card opens full view
+    box.addEventListener('click', (e) => {
+      if (!e.target.closest('.delete-btn')) {
+        openImageViewer(imgObj.url);
+      }
+    });
+
+    // Cross delete click
+    box.querySelector('.delete-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentProjectImages.splice(index, 1);
+      renderProjectScreenshots();
+    });
+
+    grid.appendChild(box);
+  });
+}
+
+/* ==========================================================
+   VERTICAL PROJECTS LIST (Left Sidebar)
+   ========================================================== */
 function listenToProjects() {
   const listEl = document.getElementById('admin-projects-list');
   const countBadge = document.getElementById('project-count');
@@ -170,7 +289,7 @@ function listenToProjects() {
   });
 }
 
-// Global Edit Handler
+// Edit project
 window.editProject = function(id) {
   const p = projectsCache[id];
   if (!p) return;
@@ -181,22 +300,22 @@ window.editProject = function(id) {
   document.getElementById('proj-tech').value = p.techStack || '';
   document.getElementById('proj-apk-link').value = p.apkUrl || '';
 
-  // Update UI State for Edit Mode
   document.getElementById('project-form-heading').innerText = "Edit Project";
   document.getElementById('proj-submit-btn').innerText = "Save Changes";
   document.getElementById('cancel-edit-btn').classList.remove('hidden');
 
-  const container = document.getElementById('proj-files-container');
-  if (p.images && p.images.length > 0) {
-    container.innerHTML = `<span class="text-xs text-cyan-400">${p.images.length} existing screenshot(s) preserved. Choose new to replace.</span>`;
-  } else {
-    container.innerHTML = '<span class="italic text-slate-500">No images attached</span>';
-  }
+  // Load existing images into state
+  currentProjectImages = (p.images || []).map(url => ({
+    type: 'existing',
+    url: url,
+    file: null
+  }));
+  renderProjectScreenshots();
 
   window.scrollTo({ top: document.getElementById('project-form').offsetTop - 100, behavior: 'smooth' });
 };
 
-// Global Delete Handler
+// Delete project
 window.deleteProject = async function(id) {
   if (confirm("Are you sure you want to delete this project?")) {
     try {
@@ -210,7 +329,6 @@ window.deleteProject = async function(id) {
   }
 };
 
-// Cancel Edit Button
 document.getElementById('cancel-edit-btn').addEventListener('click', resetProjectForm);
 
 function resetProjectForm() {
@@ -219,31 +337,32 @@ function resetProjectForm() {
   document.getElementById('project-form-heading').innerText = "Add New Android Project";
   document.getElementById('proj-submit-btn').innerText = "Upload Project";
   document.getElementById('cancel-edit-btn').classList.add('hidden');
-  document.getElementById('proj-files-container').innerHTML = '<span class="italic text-slate-500">No files selected</span>';
+  currentProjectImages = [];
+  renderProjectScreenshots();
   document.getElementById('upload-status').innerText = '';
 }
 
-// Upload / Update Project Submit Handler
+// Submit Project
 document.getElementById('project-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const status = document.getElementById('upload-status');
   const editId = document.getElementById('editing-proj-id').value;
   const isEditing = Boolean(editId);
 
-  status.innerText = "Processing...";
+  status.innerText = "Processing screenshots...";
 
   try {
-    const imageFiles = document.getElementById('proj-images').files;
-    let finalImages = isEditing && projectsCache[editId]?.images ? [...projectsCache[editId].images] : [];
+    const finalImageUrls = [];
 
-    // If new images were selected, upload them
-    if (imageFiles.length > 0) {
-      finalImages = [];
-      const maxFiles = Math.min(imageFiles.length, 20);
-      for (let i = 0; i < maxFiles; i++) {
-        status.innerText = `Uploading image ${i + 1} of ${maxFiles}...`;
-        const url = await uploadToImgBB(imageFiles[i]);
-        finalImages.push(url);
+    // Process each image in currentProjectImages
+    for (let i = 0; i < currentProjectImages.length; i++) {
+      const item = currentProjectImages[i];
+      if (item.type === 'existing') {
+        finalImageUrls.push(item.url);
+      } else if (item.type === 'new' && item.file) {
+        status.innerText = `Uploading screenshot ${i + 1} of ${currentProjectImages.length}...`;
+        const uploadedUrl = await uploadToImgBB(item.file);
+        finalImageUrls.push(uploadedUrl);
       }
     }
 
@@ -252,7 +371,7 @@ document.getElementById('project-form').addEventListener('submit', async (e) => 
       description: document.getElementById('proj-desc').value,
       techStack: document.getElementById('proj-tech').value,
       apkUrl: document.getElementById('proj-apk-link').value,
-      images: finalImages,
+      images: finalImageUrls,
       updatedAt: new Date()
     };
 
