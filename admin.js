@@ -31,7 +31,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
   signOut(auth).then(() => window.location.href = 'login.html');
 });
 
-// Auto-compress & Resize Image (Firestore 1MB limit bypass karne ke liye)
+// Auto-compress & Resize Image (Firestore 1MB limit bypass)
 function compressAndConvertImage(file, maxWidth = 800, quality = 0.7) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -54,8 +54,6 @@ function compressAndConvertImage(file, maxWidth = 800, quality = 0.7) {
 
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-
-        // Lightweight optimized Base64
         resolve(canvas.toDataURL('image/jpeg', quality));
       };
       img.onerror = (err) => reject(err);
@@ -64,9 +62,7 @@ function compressAndConvertImage(file, maxWidth = 800, quality = 0.7) {
   });
 }
 
-/* ==========================================================
-   IMAGE VIEWER MODAL
-   ========================================================== */
+/* IMAGE VIEWER MODAL */
 window.openImageViewer = function(url) {
   const modal = document.getElementById('image-viewer-modal');
   document.getElementById('modal-full-img').src = url;
@@ -80,9 +76,7 @@ window.closeImageViewer = function() {
   modal.classList.remove('flex');
 };
 
-/* ==========================================================
-   PROFILE DP CROPPING (Cropper.js)
-   ========================================================== */
+/* PROFILE DP CROPPING */
 const profFileInput = document.getElementById('prof-image-file');
 const cropperImg = document.getElementById('cropper-image');
 const cropModal = document.getElementById('crop-modal');
@@ -153,6 +147,9 @@ async function loadExistingProfile() {
       document.getElementById('prof-email').value = d.email || '';
       document.getElementById('prof-whatsapp').value = d.whatsapp || '';
       document.getElementById('prof-github').value = d.github || '';
+      if (document.getElementById('prof-linkedin')) {
+        document.getElementById('prof-linkedin').value = d.linkedin || '';
+      }
       if (d.profileUrl) {
         document.getElementById('prof-preview-img').src = d.profileUrl;
       }
@@ -177,6 +174,7 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
       email: document.getElementById('prof-email').value,
       whatsapp: document.getElementById('prof-whatsapp').value,
       github: document.getElementById('prof-github').value,
+      linkedin: document.getElementById('prof-linkedin') ? document.getElementById('prof-linkedin').value : '',
     };
 
     if (croppedProfileDataUrl) {
@@ -191,9 +189,7 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
   }
 });
 
-/* ==========================================================
-   PROJECT SCREENSHOTS GRID (150x150)
-   ========================================================== */
+/* PROJECT SCREENSHOTS GRID (150x150) */
 const projImagesInput = document.getElementById('proj-images');
 
 projImagesInput.addEventListener('change', async (e) => {
@@ -253,9 +249,7 @@ function renderProjectScreenshots() {
   });
 }
 
-/* ==========================================================
-   VERTICAL PROJECTS LIST
-   ========================================================== */
+/* VERTICAL PROJECTS LIST */
 function listenToProjects() {
   const listEl = document.getElementById('admin-projects-list');
   const countBadge = document.getElementById('project-count');
@@ -280,7 +274,7 @@ function listenToProjects() {
       item.innerHTML = `
         <div class="min-w-0 flex-1">
           <h4 class="text-sm font-semibold text-white truncate">${p.title}</h4>
-          <p class="text-xs text-slate-500 truncate">${p.techStack || 'No tech specified'}</p>
+          <p class="text-xs text-slate-500 truncate">${p.category ? p.category.toUpperCase() : 'APP'} &bull; ${p.techStack || 'No tech specified'}</p>
         </div>
         <div class="flex items-center gap-1.5 shrink-0">
           <button onclick="editProject('${id}')" class="p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/20 text-xs transition" title="Edit">
@@ -302,6 +296,7 @@ window.editProject = function(id) {
 
   document.getElementById('editing-proj-id').value = id;
   document.getElementById('proj-title').value = p.title || '';
+  document.getElementById('proj-category').value = p.category || 'fintech';
   document.getElementById('proj-desc').value = p.description || '';
   document.getElementById('proj-tech').value = p.techStack || '';
   document.getElementById('proj-apk-link').value = p.apkUrl || '';
@@ -359,6 +354,7 @@ document.getElementById('project-form').addEventListener('submit', async (e) => 
 
     const payload = {
       title: document.getElementById('proj-title').value,
+      category: document.getElementById('proj-category').value,
       description: document.getElementById('proj-desc').value,
       techStack: document.getElementById('proj-tech').value,
       apkUrl: document.getElementById('proj-apk-link').value,
