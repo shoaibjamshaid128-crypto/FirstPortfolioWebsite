@@ -42,15 +42,17 @@ body {
   pointer-events: none;
 }
 
-/* Seamless Glassmorphism (Stroke-Free Borders) */
+/* Seamless Glassmorphism Cards */
 .glass-card {
   background: rgba(8, 14, 28, 0.72);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(56, 189, 248, 0.14);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
   box-shadow: 0 30px 60px -10px rgba(56, 189, 248, 0.15);
   transform: translateY(-3px);
 }
@@ -64,9 +66,9 @@ body {
   box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.85), 0 0 24px -4px rgba(56, 189, 248, 0.15);
 }
 
-/* HUD Telemetry Widgets (Border-Stroke Removed, Soft Inset Glow) */
+/* HUD Telemetry Widgets (Stroke-Free, Modern Look) */
 .hud-card {
-  background: rgba(6, 12, 26, 0.82);
+  background: rgba(6, 12, 26, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -87,11 +89,11 @@ body {
 .hero-video-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(3, 7, 18, 0.5) 0%, rgba(3, 7, 18, 0.88) 85%);
+  background: radial-gradient(circle at center, rgba(3, 7, 18, 0.45) 0%, rgba(3, 7, 18, 0.88) 85%);
   z-index: 1;
 }
 
-/* Flowing Sine Waves (Faithful to Reference Design) */
+/* Flowing Sine Waves */
 .wave-line {
   stroke-dasharray: 1200;
   stroke-dashoffset: 1200;
