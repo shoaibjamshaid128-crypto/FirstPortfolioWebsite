@@ -13,7 +13,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="relative min-h-screen text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
+<body class="relative min-h-screen text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200 bg-[#030712]">
 
   <!-- Interactive Background Canvas -->
   <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
@@ -87,11 +87,12 @@
     <header id="home" class="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 pt-24 pb-16 overflow-hidden">
       
       <!-- Video Background -->
-      <video autoplay loop muted playsinline class="hero-video-bg filter contrast-125 brightness-[0.72]">
+      <video autoplay loop muted playsinline webkit-playsinline preload="auto" class="hero-video-bg">
         <source src="hero-bg.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
       </video>
 
-      <!-- Video Vignette & Gradients -->
+      <!-- Video Vignette & Gradients Overlay -->
       <div class="hero-video-overlay"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-[#030712]/80 z-10 pointer-events-none"></div>
 
@@ -105,7 +106,7 @@
       <!-- Foreground Content -->
       <div class="relative z-20 w-full max-w-6xl mx-auto flex flex-col items-center">
         
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 text-[10px] sm:text-[11px] font-mono text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/60">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 text-[10px] sm:text-[11px] font-mono text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/60 border border-cyan-500/20">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           CONTENT STRATEGY & ANDROID ARCHITECTURE
         </div>
@@ -157,12 +158,12 @@
             <span id="hero-name">SHOAIB JAMSHAID</span>
           </h1>
 
-          <p id="hero-title" class="text-xs sm:text-sm md:text-base font-bold tracking-[0.25em] text-cyan-400 mb-4 uppercase font-mono">
+          <p id="hero-title" class="text-xs sm:text-sm md:text-base font-bold tracking-[0.25em] text-cyan-400 mb-4 uppercase font-mono drop-shadow">
             ANDROID GROWTH PARTNER
           </p>
 
           <div id="skills-list" class="flex flex-wrap justify-center items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-slate-200 font-medium mb-8">
-            <!-- Dynamically populated from Firebase -->
+            <!-- Dynamically populated from Firebase / JS -->
           </div>
 
           <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
@@ -180,10 +181,10 @@
 
       <!-- Mobile/Tablet Quick Metrics Ribbon -->
       <div class="xl:hidden w-full max-w-lg mx-auto mt-10 grid grid-cols-2 gap-2 font-mono text-[10px] text-slate-300 relative z-20">
-        <div class="hud-card p-2 rounded-xl text-center">
+        <div class="hud-card p-2 rounded-xl text-center border border-slate-800/80">
           <span class="text-cyan-400 block font-bold">320ms</span> Cold Launch
         </div>
-        <div class="hud-card p-2 rounded-xl text-center">
+        <div class="hud-card p-2 rounded-xl text-center border border-slate-800/80">
           <span class="text-emerald-400 block font-bold">60.0 FPS</span> UI Performance
         </div>
       </div>
@@ -556,7 +557,7 @@
     });
 
     const particles = [];
-    const count = 55;
+    const count = 45;
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
@@ -577,7 +578,7 @@
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < 140) {
-            ctx.strokeStyle = `rgba(56, 189, 248, ${0.18 * (1 - dist / 140)})`;
+            ctx.strokeStyle = `rgba(56, 189, 248, ${0.15 * (1 - dist / 140)})`;
             ctx.lineWidth = 0.75;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -602,7 +603,7 @@
           p.y -= (dy / dist) * 0.4;
         }
 
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.5)';
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fill();
