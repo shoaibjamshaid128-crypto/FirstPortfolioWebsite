@@ -31,7 +31,7 @@ body {
   background: #38bdf8;
 }
 
-/* Background canvas */
+/* Background Matrix Canvas */
 #bg-canvas {
   position: fixed;
   top: 0;
@@ -42,18 +42,16 @@ body {
   pointer-events: none;
 }
 
-/* Deep Glassmorphism with Cyber Rim Highlights */
+/* Seamless Glassmorphism (Stroke-Free Borders) */
 .glass-card {
   background: rgba(8, 14, 28, 0.72);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(56, 189, 248, 0.14);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-card:hover {
-  border-color: rgba(56, 189, 248, 0.35);
-  box-shadow: 0 30px 60px -10px rgba(56, 189, 248, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 60px -10px rgba(56, 189, 248, 0.15);
   transform: translateY(-3px);
 }
 
@@ -66,15 +64,15 @@ body {
   box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.85), 0 0 24px -4px rgba(56, 189, 248, 0.15);
 }
 
-/* Floating HUD telemetry widgets */
+/* HUD Telemetry Widgets (Border-Stroke Removed, Soft Inset Glow) */
 .hud-card {
-  background: rgba(6, 12, 26, 0.90);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: rgba(6, 12, 26, 0.82);
   backdrop-filter: blur(20px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 20px rgba(56, 189, 248, 0.12);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Hero Video Responsive Styling */
+/* Seamless Video Layer */
 .hero-video-bg {
   position: absolute;
   top: 0;
@@ -82,37 +80,37 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  z-index: 1;
+  object-position: 70% center;
+  z-index: 0;
 }
 
 .hero-video-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(3, 7, 18, 0.65) 0%, rgba(3, 7, 18, 0.92) 100%);
-  z-index: 2;
+  background: radial-gradient(circle at center, rgba(3, 7, 18, 0.5) 0%, rgba(3, 7, 18, 0.88) 85%);
+  z-index: 1;
 }
 
-/* Flowing Sine Waves */
+/* Flowing Sine Waves (Faithful to Reference Design) */
 .wave-line {
   stroke-dasharray: 1200;
   stroke-dashoffset: 1200;
   animation: waveFlow 12s ease-in-out infinite alternate;
 }
 @keyframes waveFlow {
-  0% { stroke-dashoffset: 1200; opacity: 0.25; }
-  50% { opacity: 0.85; }
-  100% { stroke-dashoffset: 0; opacity: 0.35; }
+  0% { stroke-dashoffset: 1200; opacity: 0.2; }
+  50% { opacity: 0.7; }
+  100% { stroke-dashoffset: 0; opacity: 0.3; }
 }
 
 /* Smooth Floating Animations */
 @keyframes floatSlow {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(0.4deg); }
+  50% { transform: translateY(-8px) rotate(0.4deg); }
 }
 @keyframes floatReverse {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(10px) rotate(-0.5deg); }
+  50% { transform: translateY(8px) rotate(-0.5deg); }
 }
 .animate-float-left {
   animation: floatSlow 6s ease-in-out infinite;
