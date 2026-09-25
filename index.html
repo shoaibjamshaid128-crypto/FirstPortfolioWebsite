@@ -83,8 +83,8 @@
   <!-- Main Content Wrapper -->
   <div class="relative z-10">
 
-    <!-- 2. Hero Section -->
-    <header id="home" class="relative pt-28 pb-16 sm:pt-40 sm:pb-28 max-w-7xl mx-auto px-4 sm:px-6 min-h-[95vh] flex flex-col justify-center items-center text-center">
+    <!-- 2. Hero Section (Integrated Video & Live Workspace Setup) -->
+    <header id="home" class="relative pt-28 pb-16 sm:pt-36 sm:pb-24 max-w-7xl mx-auto px-4 sm:px-6 min-h-screen flex flex-col justify-center items-center text-center">
       
       <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-xs text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/50">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -94,7 +94,7 @@
       <div class="w-full relative max-w-6xl mx-auto">
         
         <!-- Left HUD Card -->
-        <div class="hidden xl:block absolute -left-4 top-8 w-72 hud-card rounded-2xl p-4 text-left shadow-2xl animate-float-left z-30">
+        <div class="hidden xl:block absolute -left-6 top-10 w-72 hud-card rounded-2xl p-4 text-left shadow-2xl animate-float-left z-30">
           <div class="flex justify-between items-center text-[10px] text-slate-400 mb-3 border-b border-slate-800 pb-2">
             <span class="text-cyan-400 font-bold flex items-center gap-1.5">
               <i class="fa-solid fa-microchip animate-pulse"></i> RUNTIME BENCHMARK
@@ -141,7 +141,7 @@
         </div>
 
         <!-- Right HUD Card -->
-        <div class="hidden xl:block absolute -right-4 top-12 w-72 hud-card rounded-2xl p-4 text-left shadow-2xl animate-float-right z-30">
+        <div class="hidden xl:block absolute -right-6 top-16 w-72 hud-card rounded-2xl p-4 text-left shadow-2xl animate-float-right z-30">
           <div class="flex justify-between items-center text-[10px] text-slate-400 mb-3 border-b border-slate-800 pb-2">
             <span class="text-indigo-400 font-bold flex items-center gap-1.5">
               <i class="fa-solid fa-layer-group"></i> PRODUCTION ENGINE
@@ -174,45 +174,51 @@
           </div>
         </div>
 
-        <!-- Center Workstation Glass Box -->
-        <div class="relative w-full rounded-3xl overflow-hidden glass-card p-2 sm:p-4 mb-8 shadow-2xl border border-cyan-500/20">
-          <div class="relative w-full min-h-[420px] sm:h-[480px] lg:h-[540px] rounded-2xl overflow-hidden bg-slate-950 flex flex-col justify-end">
+        <!-- Center Workstation Glass Box (Live Video Background) -->
+        <div class="relative w-full rounded-3xl overflow-hidden glass-card p-2 sm:p-4 mb-8 shadow-2xl border border-cyan-500/30">
+          <div class="relative w-full min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] rounded-2xl overflow-hidden bg-slate-950 flex flex-col justify-end">
             
-            <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/70 to-[#030712]"></div>
+            <!-- Background Video Element -->
+            <video autoplay loop muted playsinline class="hero-video-bg">
+              <source src="hero-bg.mp4" type="video/mp4">
+            </video>
+
+            <!-- Video Dark Overlay -->
+            <div class="hero-video-overlay"></div>
             
-            <!-- Sine waves -->
-            <svg class="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full h-44 pointer-events-none opacity-40" viewBox="0 0 1000 200" preserveAspectRatio="none">
+            <!-- Sine waves accent -->
+            <svg class="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full h-44 pointer-events-none opacity-40 z-10" viewBox="0 0 1000 200" preserveAspectRatio="none">
               <path class="wave-line" d="M0,100 C150,20 350,180 500,100 C650,20 850,180 1000,100" fill="none" stroke="#38bdf8" stroke-width="2"/>
               <path class="wave-line" d="M0,110 C200,180 350,20 500,110 C650,200 800,20 1000,110" fill="none" stroke="#818cf8" stroke-width="1.5" style="animation-delay: -4s;"/>
               <path class="wave-line" d="M0,90 C180,30 320,170 500,90 C680,10 820,170 1000,90" fill="none" stroke="#10b981" stroke-width="1" style="animation-delay: -7s;"/>
             </svg>
 
-            <!-- Center Headlines -->
-            <div class="relative z-20 px-4 py-8 sm:py-12 text-center max-w-3xl mx-auto">
+            <!-- Center Headlines & CTAs -->
+            <div class="relative z-20 px-4 py-10 sm:py-16 text-center max-w-3xl mx-auto">
               
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 text-[11px] font-mono text-cyan-300 mb-4 backdrop-blur-md">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-[11px] font-mono text-cyan-300 mb-4 backdrop-blur-md shadow-lg">
                 <i class="fa-brands fa-android text-emerald-400 text-sm"></i>
                 <span>kotlinc &bull; ./gradlew assembleRelease [SUCCESSFUL]</span>
               </div>
 
-              <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white mb-3 drop-shadow-md">
+              <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white mb-3 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
                 <span id="hero-name">Shoaib Jamshaid</span>
               </h1>
               
-              <p id="hero-title" class="text-xs sm:text-base font-bold tracking-widest text-cyan-400 mb-4 uppercase font-mono">
+              <p id="hero-title" class="text-xs sm:text-base font-bold tracking-widest text-cyan-400 mb-5 uppercase font-mono drop-shadow">
                 Android Growth Partner & Mobile Architect
               </p>
 
-              <div id="skills-list" class="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-300 font-medium mb-6">
+              <div id="skills-list" class="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-200 font-medium mb-8">
                 <!-- Dynamically populated from Firebase -->
               </div>
 
               <!-- Action buttons -->
               <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
-                <a href="#projects" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 text-slate-950 font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-cyan-500/30 hover:opacity-90 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                <a href="#projects" class="px-7 sm:px-9 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 text-slate-950 font-extrabold text-xs sm:text-sm tracking-wide shadow-lg shadow-cyan-500/40 hover:opacity-95 transition transform hover:-translate-y-0.5 flex items-center gap-2">
                   <i class="fa-solid fa-mobile-screen text-base"></i> View Production Apps
                 </a>
-                <a id="hero-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-slate-900/85 border border-slate-700 hover:border-emerald-400 text-emerald-400 font-bold text-xs sm:text-sm tracking-wide transition transform hover:-translate-y-0.5 flex items-center gap-2 backdrop-blur-md">
+                <a id="hero-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="px-7 sm:px-9 py-3.5 rounded-full bg-slate-900/90 border border-slate-700 hover:border-emerald-400 text-emerald-400 font-bold text-xs sm:text-sm tracking-wide transition transform hover:-translate-y-0.5 flex items-center gap-2 backdrop-blur-md shadow-lg shadow-emerald-500/10">
                   <i class="fa-brands fa-whatsapp text-lg"></i> Chat with me
                 </a>
               </div>
@@ -220,9 +226,9 @@
             </div>
 
             <!-- Terminal status bar -->
-            <div class="relative z-20 w-full border-t border-slate-800/80 bg-slate-950/80 px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between text-[10px] sm:text-[11px] font-mono text-slate-400 gap-2">
+            <div class="relative z-20 w-full border-t border-slate-800/80 bg-slate-950/85 backdrop-blur-md px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between text-[10px] sm:text-[11px] font-mono text-slate-400 gap-2">
               <div class="flex items-center gap-3">
-                <span class="text-emerald-400 flex items-center"><i class="fa-solid fa-circle text-[7px] mr-1.5"></i> Gradle Daemon: Active</span>
+                <span class="text-emerald-400 flex items-center"><i class="fa-solid fa-circle text-[7px] mr-1.5 animate-pulse"></i> Gradle Daemon: Active</span>
                 <span class="hidden md:inline text-slate-400"><i class="fa-solid fa-code-branch mr-1 text-cyan-400"></i> git: release/v2.4.0</span>
               </div>
               <div class="flex items-center gap-3">
