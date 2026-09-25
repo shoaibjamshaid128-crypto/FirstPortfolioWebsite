@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shoaib Jamshaid | Android Architect & Mobile Engineer</title>
   
-  <!-- Modern Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="relative min-h-screen text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
 
-  <!-- Interactive 3D Background Canvas -->
+  <!-- Interactive Background Canvas -->
   <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <!-- Ambient Glow Orbs -->
@@ -25,11 +23,10 @@
   <div class="fixed top-96 right-1/4 w-[520px] h-[520px] bg-indigo-500/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
   <div class="fixed bottom-24 left-1/3 w-[560px] h-[560px] bg-emerald-500/5 rounded-full blur-[160px] pointer-events-none z-0"></div>
 
-  <!-- 1. Floating Pill Navbar (Responsive for Mobile, Tablet, PC) -->
+  <!-- 1. Floating Pill Navbar -->
   <div class="fixed top-4 sm:top-6 inset-x-0 z-50 flex justify-center px-3 sm:px-6">
     <nav class="pill-navbar flex items-center justify-between w-full max-w-5xl px-3.5 sm:px-6 py-2.5 rounded-full">
       
-      <!-- Brand & DP -->
       <a href="#home" class="flex items-center gap-2.5 sm:gap-3 group">
         <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden border border-cyan-400/50 shadow-md group-hover:border-cyan-300 transition">
           <img id="nav-dp" src="https://via.placeholder.com/150" 
@@ -86,16 +83,15 @@
   <!-- Main Content Wrapper -->
   <div class="relative z-10">
 
-    <!-- 2. Hero Section: Fullscreen Responsive Background Video (Border Strokes Removed) -->
+    <!-- 2. Hero Section: Exact Video Loop Integration -->
     <header id="home" class="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 pt-24 pb-16 overflow-hidden">
       
-      <!-- Seamless Background Video -->
-      <video autoplay loop muted playsinline class="hero-video-bg filter contrast-125 brightness-[0.70]">
+      <!-- Video Background -->
+      <video autoplay loop muted playsinline class="hero-video-bg filter contrast-125 brightness-[0.72]">
         <source src="hero-bg.mp4" type="video/mp4">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-screen-close-up-34444-large.mp4" type="video/mp4">
       </video>
 
-      <!-- Smooth Dark Gradient Overlay -->
+      <!-- Video Vignette & Gradients -->
       <div class="hero-video-overlay"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-[#030712]/80 z-10 pointer-events-none"></div>
 
@@ -106,10 +102,9 @@
         <path class="wave-line" d="M0,90 C180,30 320,170 500,90 C680,10 820,170 1000,90" fill="none" stroke="#10b981" stroke-width="1" style="animation-delay: -7s;"/>
       </svg>
 
-      <!-- Center Foreground Content -->
+      <!-- Foreground Content -->
       <div class="relative z-20 w-full max-w-6xl mx-auto flex flex-col items-center">
         
-        <!-- Top Status Tag -->
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 text-[10px] sm:text-[11px] font-mono text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/60">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           CONTENT STRATEGY & ANDROID ARCHITECTURE
