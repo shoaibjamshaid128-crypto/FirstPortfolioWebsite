@@ -87,7 +87,7 @@ body {
   transform: translate(-50%, -50%);
   object-fit: cover;
   object-position: center;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
   filter: contrast(1.15) brightness(0.65);
 }
@@ -95,8 +95,8 @@ body {
 .hero-video-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(3, 7, 18, 0.40) 0%, rgba(3, 7, 18, 0.90) 85%);
-  z-index: 2;
+  background: radial-gradient(circle at center, rgba(3, 7, 18, 0.35) 0%, rgba(3, 7, 18, 0.85) 85%);
+  z-index: 1;
   pointer-events: none;
 }
 
