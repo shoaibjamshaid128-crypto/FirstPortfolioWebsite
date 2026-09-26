@@ -15,7 +15,7 @@
 </head>
 <body class="relative min-h-screen text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200 bg-[#030712]">
 
-  <!-- Interactive Background Canvas (Nasa pinakailalim) -->
+  <!-- Interactive Background Canvas -->
   <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <!-- Ambient Glow Orbs -->
@@ -103,62 +103,69 @@
         <path class="wave-line" d="M0,90 C180,30 320,170 500,90 C680,10 820,170 1000,90" fill="none" stroke="#10b981" stroke-width="1" style="animation-delay: -7s;"/>
       </svg>
 
-      <!-- Foreground Content -->
+      <!-- Foreground Content Container -->
       <div class="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center">
         
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 text-[10px] sm:text-[11px] font-mono text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/60 border border-cyan-500/20">
+        <!-- RUNTIME BENCHMARK: Adjusted to TOP RIGHT with Increased Size -->
+        <div class="hidden xl:block absolute -right-2 top-4 sm:top-8 w-80 hud-card rounded-2xl p-5 text-left shadow-2xl animate-float-right z-20">
+          <div class="flex justify-between items-center text-xs text-slate-400 mb-3 pb-2 border-b border-slate-800/80">
+            <span class="text-cyan-400 font-bold flex items-center gap-2 font-mono tracking-wide text-xs">
+              <i class="fa-solid fa-microchip text-sm"></i> RUNTIME BENCHMARK
+            </span>
+            <span class="text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded font-mono font-bold text-[10px]">60 FPS</span>
+          </div>
+          <div class="space-y-3 text-xs font-mono text-slate-300">
+            <div>
+              <div class="flex justify-between mb-1.5 text-[11px]">
+                <span class="text-slate-400">Cold Startup:</span>
+                <span class="text-cyan-300 font-bold">320ms</span>
+              </div>
+              <div class="w-full bg-slate-900/90 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                <div class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full w-[88%] shadow-[0_0_8px_rgba(56,189,248,0.5)]"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1.5 text-[11px]">
+                <span class="text-slate-400">Memory Overhead:</span>
+                <span class="text-emerald-300 font-bold">22.4 MB</span>
+              </div>
+              <div class="w-full bg-slate-900/90 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                <div class="bg-emerald-400 h-full w-[30%] shadow-[0_0_8px_rgba(52,211,153,0.5)]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCTION ENGINE: Adjusted to BOTTOM LEFT with Increased Size -->
+        <div class="hidden xl:block absolute -left-2 bottom-4 sm:bottom-8 w-80 hud-card rounded-2xl p-5 text-left shadow-2xl animate-float-left z-20">
+          <div class="flex justify-between items-center text-xs text-slate-400 mb-3 pb-2 border-b border-slate-800/80">
+            <span class="text-indigo-400 font-bold flex items-center gap-2 font-mono tracking-wide text-xs">
+              <i class="fa-solid fa-layer-group text-sm"></i> PRODUCTION ENGINE
+            </span>
+            <span class="text-indigo-300 bg-indigo-500/20 border border-indigo-500/30 px-2 py-0.5 rounded font-mono font-bold text-[10px]">CLEAN</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+            <div class="bg-slate-900/90 border border-slate-800/80 p-2 rounded-xl text-center text-cyan-400 font-bold hover:border-cyan-500/40 transition">Compose UI</div>
+            <div class="bg-slate-900/90 border border-slate-800/80 p-2 rounded-xl text-center text-emerald-400 font-bold hover:border-emerald-500/40 transition">Coroutines</div>
+            <div class="bg-slate-900/90 border border-slate-800/80 p-2 rounded-xl text-center text-violet-400 font-bold hover:border-violet-500/40 transition">Room DB</div>
+            <div class="bg-slate-900/90 border border-slate-800/80 p-2 rounded-xl text-center text-amber-400 font-bold hover:border-amber-500/40 transition">Hilt / Koin</div>
+          </div>
+        </div>
+
+        <!-- Tagline Pill -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 text-[10px] sm:text-[11px] font-mono text-cyan-300 mb-5 backdrop-blur-md shadow-lg shadow-cyan-950/60 border border-cyan-500/20">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          CONTENT STRATEGY & ANDROID ARCHITECTURE
+          CONTENT STRATEGY &amp; ANDROID ARCHITECTURE
         </div>
 
-        <!-- Left HUD Card (Desktop) -->
-        <div class="hidden xl:block absolute -left-2 top-8 w-64 hud-card rounded-2xl p-4 text-left shadow-2xl animate-float-left z-20 pointer-events-none">
-          <div class="flex justify-between items-center text-[10px] text-slate-400 mb-2 pb-1.5 border-b border-slate-800/60">
-            <span class="text-cyan-400 font-bold flex items-center gap-1.5 font-mono">
-              <i class="fa-solid fa-microchip"></i> RUNTIME BENCHMARK
-            </span>
-            <span class="text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded font-mono font-bold text-[9px]">60 FPS</span>
-          </div>
-          <div class="space-y-2 text-[10px] font-mono text-slate-300">
-            <div>
-              <div class="flex justify-between mb-0.5"><span>Cold Startup:</span><span class="text-cyan-300 font-bold">320ms</span></div>
-              <div class="w-full bg-slate-900 h-1 rounded-full overflow-hidden">
-                <div class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full w-[88%]"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-0.5"><span>Memory Overhead:</span><span class="text-emerald-300 font-bold">22.4 MB</span></div>
-              <div class="w-full bg-slate-900 h-1 rounded-full overflow-hidden">
-                <div class="bg-emerald-400 h-full w-[30%]"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right HUD Card (Desktop) -->
-        <div class="hidden xl:block absolute -right-2 bottom-6 w-64 hud-card rounded-2xl p-4 text-left shadow-2xl animate-float-right z-20 pointer-events-none">
-          <div class="flex justify-between items-center text-[10px] text-slate-400 mb-2 pb-1.5 border-b border-slate-800/60">
-            <span class="text-indigo-400 font-bold flex items-center gap-1.5 font-mono">
-              <i class="fa-solid fa-layer-group"></i> PRODUCTION ENGINE
-            </span>
-            <span class="text-indigo-300 bg-indigo-500/20 px-1.5 py-0.5 rounded font-mono font-bold text-[9px]">CLEAN</span>
-          </div>
-          <div class="grid grid-cols-2 gap-1.5 text-[9px] font-mono">
-            <div class="bg-slate-900/90 p-1.5 rounded-lg text-center text-cyan-400 font-bold">Compose UI</div>
-            <div class="bg-slate-900/90 p-1.5 rounded-lg text-center text-emerald-400 font-bold">Coroutines</div>
-            <div class="bg-slate-900/90 p-1.5 rounded-lg text-center text-violet-400 font-bold">Room DB</div>
-            <div class="bg-slate-900/90 p-1.5 rounded-lg text-center text-amber-400 font-bold">Hilt / Koin</div>
-          </div>
-        </div>
-
-        <!-- Center Commands & Dominant Typography -->
-        <div class="max-w-3xl mx-auto px-2">
+        <!-- Center Typography: Guaranteed Single Line & Balanced Size -->
+        <div class="w-full max-w-4xl mx-auto px-2">
           
-          <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white mb-2 drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]">
+          <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white mb-2 whitespace-nowrap drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)]">
             <span id="hero-name">SHOAIB JAMSHAID</span>
           </h1>
 
-          <p id="hero-title" class="text-xs sm:text-sm md:text-base font-bold tracking-[0.25em] text-cyan-400 mb-4 uppercase font-mono drop-shadow">
+          <p id="hero-title" class="text-xs sm:text-sm md:text-base font-bold tracking-[0.25em] text-cyan-400 mb-5 uppercase font-mono drop-shadow">
             ANDROID GROWTH PARTNER
           </p>
 
@@ -539,7 +546,6 @@
 
   <!-- Background Canvas & Slider Engine -->
   <script>
-    // Force Autoplay for Video Background
     window.addEventListener('DOMContentLoaded', () => {
       const v = document.getElementById('heroVideo');
       if (v) {
