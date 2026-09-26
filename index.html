@@ -103,7 +103,7 @@
         <path class="wave-line" d="M0,90 C180,30 320,170 500,90 C680,10 820,170 1000,90" fill="none" stroke="#10b981" stroke-width="1" style="animation-delay: -7s;"/>
       </svg>
 
-      <!-- Foreground Content (Cards Removed, Clean Center Focus) -->
+      <!-- Foreground Content -->
       <div class="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center">
         
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 text-[10px] sm:text-xs font-mono text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/60 border border-cyan-500/20">
@@ -111,7 +111,7 @@
           CONTENT STRATEGY & ANDROID ARCHITECTURE
         </div>
 
-        <!-- Center Commands & Dominant Typography (Single Line + Compact Balanced Size) -->
+        <!-- Center Commands & Dominant Typography -->
         <div class="w-full px-2">
           
           <h1 class="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white mb-3 drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)] whitespace-nowrap leading-tight">
@@ -288,56 +288,204 @@
       </div>
     </section>
 
-    <!-- 5. "My Process" (7 Steps Transparent Timeline) -->
-    <section id="process" class="max-w-4xl mx-auto px-4 sm:px-6 py-20 relative">
-      <div class="text-center mb-16">
-        <h3 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase mb-2">My Process</h3>
-        <p class="text-xs sm:text-sm text-slate-400 font-medium">From raw logic to verified production release in 7 strategic engineering steps</p>
+    <!-- 5. "My Process" (High-Tech Interactive Android CI/CD Pipeline) -->
+    <section id="process" class="max-w-5xl mx-auto px-4 sm:px-6 py-24 relative">
+      
+      <!-- Top Title Tag -->
+      <div class="text-center mb-16 relative z-10">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-800 text-[11px] font-mono text-cyan-400 mb-3 uppercase tracking-widest shadow-lg">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> ARCHITECTURE DEPLOYMENT PIPELINE
+        </div>
+        <h3 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase mb-3">My Process</h3>
+        <p class="text-xs sm:text-sm text-slate-400 font-medium max-w-xl mx-auto">From raw business logic to verified production release through 7 strict engineering checkpoints</p>
       </div>
 
-      <div class="relative space-y-7">
-        <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-cyan-400 relative z-10">
-          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-400 tracking-wider font-mono">01 &nbsp; STEP ONE</span>
-          <h4 class="text-base sm:text-lg font-bold text-white mt-1">Architecture Planning & Data Modeling</h4>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Structuring entity relations, offline Room schemas, and network contracts before writing a line of code.</p>
+      <!-- Center Glowing Neon Pipeline Line (Desktop) & Left Line (Mobile) -->
+      <div class="relative process-pipeline-container">
+        
+        <!-- Glowing Spine Cable -->
+        <div class="absolute left-6 md:left-1/2 top-4 bottom-8 w-[3px] -translate-x-1/2 bg-gradient-to-b from-cyan-500 via-indigo-500 via-pink-500 to-emerald-400 shadow-[0_0_15px_rgba(56,189,248,0.5)] z-0 rounded-full"></div>
+        <div class="absolute left-6 md:left-1/2 top-4 bottom-8 w-[1px] -translate-x-1/2 bg-white/70 z-0"></div>
+
+        <!-- 01. STEP ONE -->
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center mb-12 group">
+          <!-- Step Card (Left on Desktop) -->
+          <div class="w-full md:w-[45%] pl-14 md:pl-0 md:pr-10 text-left">
+            <div class="process-node-card glass-card rounded-2xl p-5 sm:p-6 border border-cyan-500/20 hover:border-cyan-400/60 transition duration-300 relative overflow-hidden group-hover:-translate-y-1">
+              <span class="process-watermark">01</span>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">01 • STEP ONE</span>
+                <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1"><i class="fa-solid fa-code text-cyan-400"></i> Planning</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-black text-white group-hover:text-cyan-400 transition">Architecture Planning & Data Modeling</h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Structuring entity relations, offline Room schemas, and network contracts before writing a line of code.</p>
+              <div class="flex flex-wrap gap-1.5 mt-3 text-[10px] font-mono text-cyan-300/80">
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Room 2.6</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Clean Arch</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Contract API</span>
+              </div>
+            </div>
+          </div>
+          <!-- Center Pipeline Node -->
+          <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-xl bg-slate-950 border-2 border-cyan-400 flex items-center justify-center text-cyan-400 shadow-[0_0_20px_rgba(56,189,248,0.7)] group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-slate-950 transition duration-300 z-10">
+            <i class="fa-solid fa-database text-xs"></i>
+          </div>
+          <div class="hidden md:block w-[45%] pl-10"></div>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-blue-400 sm:ml-10 relative z-10">
-          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-blue-500/20 text-blue-400 tracking-wider font-mono">02 &nbsp; STEP TWO</span>
-          <h4 class="text-base sm:text-lg font-bold text-white mt-1">Reactive UI & Component Assembly</h4>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Creating adaptive, pixel-perfect layouts using modern Jetpack Compose or dynamic XML with Material 3.</p>
+        <!-- 02. STEP TWO -->
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center mb-12 group">
+          <div class="hidden md:block w-[45%] pr-10"></div>
+          <!-- Center Pipeline Node -->
+          <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-xl bg-slate-950 border-2 border-blue-400 flex items-center justify-center text-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.7)] group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-slate-950 transition duration-300 z-10">
+            <i class="fa-solid fa-shapes text-xs"></i>
+          </div>
+          <!-- Step Card (Right on Desktop) -->
+          <div class="w-full md:w-[45%] pl-14 md:pl-10 text-left">
+            <div class="process-node-card glass-card rounded-2xl p-5 sm:p-6 border border-blue-500/20 hover:border-blue-400/60 transition duration-300 relative overflow-hidden group-hover:-translate-y-1">
+              <span class="process-watermark">02</span>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">02 • STEP TWO</span>
+                <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1"><i class="fa-solid fa-palette text-blue-400"></i> UI & Assembly</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-black text-white group-hover:text-blue-400 transition">Reactive UI & Component Assembly</h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Creating adaptive, pixel-perfect layouts using modern Jetpack Compose or dynamic XML with Material 3.</p>
+              <div class="flex flex-wrap gap-1.5 mt-3 text-[10px] font-mono text-blue-300/80">
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Jetpack Compose</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Material 3</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">MotionLayout</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-indigo-400 relative z-10">
-          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-400 tracking-wider font-mono">03 &nbsp; STEP THREE</span>
-          <h4 class="text-base sm:text-lg font-bold text-white mt-1">Offline-First Caching & State Management</h4>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Implementing local databases with reactive StateFlow streams for instantaneous local loading.</p>
+        <!-- 03. STEP THREE -->
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center mb-12 group">
+          <div class="w-full md:w-[45%] pl-14 md:pl-0 md:pr-10 text-left">
+            <div class="process-node-card glass-card rounded-2xl p-5 sm:p-6 border border-indigo-500/20 hover:border-indigo-400/60 transition duration-300 relative overflow-hidden group-hover:-translate-y-1">
+              <span class="process-watermark">03</span>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">03 • STEP THREE</span>
+                <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1"><i class="fa-solid fa-bolt text-indigo-400"></i> Reactive State</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-black text-white group-hover:text-indigo-400 transition">Offline-First Caching & State Management</h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Implementing local databases with reactive StateFlow streams for instantaneous local loading.</p>
+              <div class="flex flex-wrap gap-1.5 mt-3 text-[10px] font-mono text-indigo-300/80">
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">StateFlow</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">MVI Flow</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Offline Sync</span>
+              </div>
+            </div>
+          </div>
+          <!-- Center Pipeline Node -->
+          <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-xl bg-slate-950 border-2 border-indigo-400 flex items-center justify-center text-indigo-400 shadow-[0_0_20px_rgba(129,140,248,0.7)] group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-slate-950 transition duration-300 z-10">
+            <i class="fa-solid fa-wave-square text-xs"></i>
+          </div>
+          <div class="hidden md:block w-[45%] pl-10"></div>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-purple-400 sm:ml-10 relative z-10">
-          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-purple-500/20 text-purple-400 tracking-wider font-mono">04 &nbsp; STEP FOUR</span>
-          <h4 class="text-base sm:text-lg font-bold text-white mt-1">API Integration & Cloud Synchronization</h4>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Connecting secure backend endpoints, real-time web sockets, and push notification gateways.</p>
+        <!-- 04. STEP FOUR -->
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center mb-12 group">
+          <div class="hidden md:block w-[45%] pr-10"></div>
+          <!-- Center Pipeline Node -->
+          <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-xl bg-slate-950 border-2 border-purple-400 flex items-center justify-center text-purple-400 shadow-[0_0_20px_rgba(192,132,252,0.7)] group-hover:scale-110 group-hover:bg-purple-500 group-hover:text-slate-950 transition duration-300 z-10">
+            <i class="fa-solid fa-cloud-arrow-up text-xs"></i>
+          </div>
+          <div class="w-full md:w-[45%] pl-14 md:pl-10 text-left">
+            <div class="process-node-card glass-card rounded-2xl p-5 sm:p-6 border border-purple-500/20 hover:border-purple-400/60 transition duration-300 relative overflow-hidden group-hover:-translate-y-1">
+              <span class="process-watermark">04</span>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">04 • STEP FOUR</span>
+                <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1"><i class="fa-solid fa-network-wired text-purple-400"></i> Networking</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-black text-white group-hover:text-purple-400 transition">API Integration & Cloud Synchronization</h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Connecting secure backend endpoints, real-time web sockets, and push notification gateways.</p>
+              <div class="flex flex-wrap gap-1.5 mt-3 text-[10px] font-mono text-purple-300/80">
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Retrofit / Ktor</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">WebSockets</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">FCM Push</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-pink-400 relative z-10">
-          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-pink-500/20 text-pink-400 tracking-wider font-mono">05 &nbsp; STEP FIVE</span>
-          <h4 class="text-base sm:text-lg font-bold text-white mt-1">Performance Profiling & Memory Audit</h4>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Rigorous audits of Android Studio Profiler traces to identify bottlenecks and UI jank.</p>
+        <!-- 05. STEP FIVE -->
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center mb-12 group">
+          <div class="w-full md:w-[45%] pl-14 md:pl-0 md:pr-10 text-left">
+            <div class="process-node-card glass-card rounded-2xl p-5 sm:p-6 border border-pink-500/20 hover:border-pink-400/60 transition duration-300 relative overflow-hidden group-hover:-translate-y-1">
+              <span class="process-watermark">05</span>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30">05 • STEP FIVE</span>
+                <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1"><i class="fa-solid fa-microchip text-pink-400"></i> Profiling</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-black text-white group-hover:text-pink-400 transition">Performance Profiling & Memory Audit</h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Rigorous audits of Android Studio Profiler traces to eliminate bottlenecks, memory leaks, and UI jank.</p>
+              <div class="flex flex-wrap gap-1.5 mt-3 text-[10px] font-mono text-pink-300/80">
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Macrobenchmark</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">LeakCanary</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Systrace 60FPS</span>
+              </div>
+            </div>
+          </div>
+          <!-- Center Pipeline Node -->
+          <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-xl bg-slate-950 border-2 border-pink-400 flex items-center justify-center text-pink-400 shadow-[0_0_20px_rgba(244,114,182,0.7)] group-hover:scale-110 group-hover:bg-pink-500 group-hover:text-slate-950 transition duration-300 z-10">
+            <i class="fa-solid fa-gauge-high text-xs"></i>
+          </div>
+          <div class="hidden md:block w-[45%] pl-10"></div>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-amber-400 sm:ml-10 relative z-10">
-          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 tracking-wider font-mono">06 &nbsp; STEP SIX</span>
-          <h4 class="text-base sm:text-lg font-bold text-white mt-1">Code Shrinking & Security Hardening</h4>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Securing compiled bytecodes, obfuscating sensitive keys, and trimming download footprints.</p>
+        <!-- 06. STEP SIX -->
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center mb-12 group">
+          <div class="hidden md:block w-[45%] pr-10"></div>
+          <!-- Center Pipeline Node -->
+          <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-xl bg-slate-950 border-2 border-amber-400 flex items-center justify-center text-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.7)] group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition duration-300 z-10">
+            <i class="fa-solid fa-shield-halved text-xs"></i>
+          </div>
+          <div class="w-full md:w-[45%] pl-14 md:pl-10 text-left">
+            <div class="process-node-card glass-card rounded-2xl p-5 sm:p-6 border border-amber-500/20 hover:border-amber-400/60 transition duration-300 relative overflow-hidden group-hover:-translate-y-1">
+              <span class="process-watermark">06</span>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">06 • STEP SIX</span>
+                <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1"><i class="fa-solid fa-lock text-amber-400"></i> Hardening</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-black text-white group-hover:text-amber-400 transition">Code Shrinking & Security Hardening</h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Securing compiled bytecodes, obfuscating sensitive keys, and trimming download footprints to minimum sizes.</p>
+              <div class="flex flex-wrap gap-1.5 mt-3 text-[10px] font-mono text-amber-300/80">
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">R8 Rules</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">EncryptedSharedPreferences</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">App Bundle</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-emerald-400 relative z-10">
-          <span class="text-[11px] font-bold px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 tracking-wider font-mono">07 &nbsp; STEP SEVEN</span>
-          <h4 class="text-base sm:text-lg font-bold text-white mt-1">Production Release & Play Store Deployment</h4>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1 mb-4 leading-relaxed">Signed Android App Bundles (AAB) delivered with CI/CD automation and release management.</p>
+        <!-- 07. STEP SEVEN -->
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center group">
+          <div class="w-full md:w-[45%] pl-14 md:pl-0 md:pr-10 text-left">
+            <div class="process-node-card glass-card rounded-2xl p-5 sm:p-6 border border-emerald-500/20 hover:border-emerald-400/60 transition duration-300 relative overflow-hidden group-hover:-translate-y-1">
+              <span class="process-watermark">07</span>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">07 • STEP SEVEN</span>
+                <span class="text-[10px] font-mono text-slate-400 flex items-center gap-1"><i class="fa-solid fa-rocket text-emerald-400"></i> Delivery</span>
+              </div>
+              <h4 class="text-base sm:text-lg font-black text-white group-hover:text-emerald-400 transition">Production Release & Play Store Deployment</h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Signed Android App Bundles (AAB) delivered with automated CI/CD pipelines and zero-friction release channels.</p>
+              <div class="flex flex-wrap gap-1.5 mt-3 text-[10px] font-mono text-emerald-300/80">
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">GitHub Actions</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Play Console Track</span>
+                <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">Signing Keystore</span>
+              </div>
+            </div>
+          </div>
+          <!-- Center Pipeline Node -->
+          <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-xl bg-slate-950 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 shadow-[0_0_20px_rgba(52,211,153,0.7)] group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-slate-950 transition duration-300 z-10">
+            <i class="fa-solid fa-circle-check text-xs"></i>
+          </div>
+          <div class="hidden md:block w-[45%] pl-10"></div>
         </div>
+
       </div>
+
     </section>
 
     <!-- 6. "About Me" Section -->
