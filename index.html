@@ -83,8 +83,8 @@
   <!-- Main Content Wrapper -->
   <div class="relative z-10">
 
-    <!-- 2. Hero Section: Fullscreen Responsive Background Video -->
-    <header id="home" class="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 pt-28 pb-16 overflow-hidden">
+    <!-- 2. Hero Section: Clean Fullscreen Video with Single-Line Name -->
+    <header id="home" class="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 pt-24 pb-16 overflow-hidden">
       
       <!-- Video Background -->
       <video id="heroVideo" autoplay loop muted playsinline webkit-playsinline preload="auto" class="hero-video-bg">
@@ -103,60 +103,18 @@
         <path class="wave-line" d="M0,90 C180,30 320,170 500,90 C680,10 820,170 1000,90" fill="none" stroke="#10b981" stroke-width="1" style="animation-delay: -7s;"/>
       </svg>
 
-      <!-- Foreground Content with Relative Anchor Container for HUD Widgets -->
-      <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
+      <!-- Foreground Content (Cards Removed, Clean Center Focus) -->
+      <div class="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center">
         
-        <!-- Top Pill Tag -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 text-[10px] sm:text-xs font-mono text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/60 border border-cyan-500/25">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 text-[10px] sm:text-xs font-mono text-cyan-300 mb-6 backdrop-blur-md shadow-lg shadow-cyan-950/60 border border-cyan-500/20">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           CONTENT STRATEGY & ANDROID ARCHITECTURE
         </div>
 
-        <!-- RUNTIME BENCHMARK (Adjusted to Top-Right with slightly enlarged profile) -->
-        <div class="hidden xl:block absolute right-2 sm:right-6 top-0 w-72 hud-card rounded-2xl p-4 sm:p-5 text-left shadow-2xl animate-float-right z-20 pointer-events-none border border-cyan-500/20 backdrop-blur-xl">
-          <div class="flex justify-between items-center text-xs text-slate-400 mb-3 pb-2 border-b border-slate-800/80">
-            <span class="text-cyan-400 font-bold flex items-center gap-2 font-mono">
-              <i class="fa-solid fa-microchip text-sm"></i> RUNTIME BENCHMARK
-            </span>
-            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-mono font-bold text-[10px]">60 FPS</span>
-          </div>
-          <div class="space-y-3 text-xs font-mono text-slate-300">
-            <div>
-              <div class="flex justify-between mb-1"><span>Cold Startup:</span><span class="text-cyan-300 font-bold">320ms</span></div>
-              <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
-                <div class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full w-[88%]"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1"><span>Memory Overhead:</span><span class="text-emerald-300 font-bold">22.4 MB</span></div>
-              <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
-                <div class="bg-emerald-400 h-full w-[30%]"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PRODUCTION ENGINE (Adjusted to Bottom-Left side with enlarged grid) -->
-        <div class="hidden xl:block absolute left-2 sm:left-6 bottom-2 w-72 hud-card rounded-2xl p-4 sm:p-5 text-left shadow-2xl animate-float-left z-20 pointer-events-none border border-indigo-500/20 backdrop-blur-xl">
-          <div class="flex justify-between items-center text-xs text-slate-400 mb-3 pb-2 border-b border-slate-800/80">
-            <span class="text-indigo-400 font-bold flex items-center gap-2 font-mono">
-              <i class="fa-solid fa-layer-group text-sm"></i> PRODUCTION ENGINE
-            </span>
-            <span class="text-indigo-300 bg-indigo-500/20 px-2 py-0.5 rounded font-mono font-bold text-[10px]">CLEAN</span>
-          </div>
-          <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
-            <div class="bg-slate-900/95 py-2 px-1 rounded-lg text-center text-cyan-400 font-bold border border-slate-800">Compose UI</div>
-            <div class="bg-slate-900/95 py-2 px-1 rounded-lg text-center text-emerald-400 font-bold border border-slate-800">Coroutines</div>
-            <div class="bg-slate-900/95 py-2 px-1 rounded-lg text-center text-violet-400 font-bold border border-slate-800">Room DB</div>
-            <div class="bg-slate-900/95 py-2 px-1 rounded-lg text-center text-amber-400 font-bold border border-slate-800">Hilt / Koin</div>
-          </div>
-        </div>
-
-        <!-- Center Commands & Dominant Single-Line Typography -->
-        <div class="w-full max-w-4xl mx-auto px-2">
+        <!-- Center Commands & Dominant Typography (Single Line + Compact Balanced Size) -->
+        <div class="w-full px-2">
           
-          <!-- NAME IN SINGLE LINE WITH BALANCED PROFESSIONAL SCALE -->
-          <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-black uppercase tracking-tight text-white mb-3 drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)] whitespace-nowrap leading-tight">
+          <h1 class="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white mb-3 drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)] whitespace-nowrap leading-tight">
             <span id="hero-name">SHOAIB JAMSHAID</span>
           </h1>
 
@@ -164,7 +122,7 @@
             ANDROID GROWTH PARTNER
           </p>
 
-          <div id="skills-list" class="flex flex-wrap justify-center items-center gap-2 sm:gap-2.5 text-xs sm:text-sm text-slate-200 font-medium mb-8">
+          <div id="skills-list" class="flex flex-wrap justify-center items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-slate-200 font-medium mb-8">
             <!-- Dynamically populated from Firebase / JS -->
           </div>
 
@@ -179,16 +137,6 @@
 
         </div>
 
-      </div>
-
-      <!-- Mobile/Tablet Quick Metrics Ribbon -->
-      <div class="xl:hidden w-full max-w-lg mx-auto mt-10 grid grid-cols-2 gap-2 font-mono text-[10px] text-slate-300 relative z-10">
-        <div class="hud-card p-2 rounded-xl text-center border border-slate-800/80">
-          <span class="text-cyan-400 block font-bold">320ms</span> Cold Launch
-        </div>
-        <div class="hud-card p-2 rounded-xl text-center border border-slate-800/80">
-          <span class="text-emerald-400 block font-bold">60.0 FPS</span> UI Performance
-        </div>
       </div>
 
     </header>
