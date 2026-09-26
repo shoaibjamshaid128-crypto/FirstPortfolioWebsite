@@ -66,18 +66,13 @@ body {
   box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.85), 0 0 24px -4px rgba(56, 189, 248, 0.15);
 }
 
-/* HUD Telemetry Widgets (Enhanced with subtle glow & depth) */
+/* HUD Telemetry Widgets (Enhanced size & subtle border lighting) */
 .hud-card {
   background: rgba(6, 12, 26, 0.88);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: all 0.3s ease;
-}
-.hud-card:hover {
-  border-color: rgba(56, 189, 248, 0.45);
-  box-shadow: 0 25px 55px rgba(56, 189, 248, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Seamless Video Layer */
